@@ -6,7 +6,6 @@ import axios from 'axios';
 function App() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  console.log(state);
   let request =async (floor)=>{
     try {
       let response=await axios.get(`http://localhost:8080/api/auth/${floor}/seat`);
