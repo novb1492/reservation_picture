@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export  function setInterceptors(instance)  {
     instance.interceptors.request.use(
       (config) => {

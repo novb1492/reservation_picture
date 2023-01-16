@@ -2,13 +2,13 @@ import "./assets/common.css";
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { ReserAction } from "./reducers/ReserReducers"
-import axios from 'axios';
+import { getFloorInfo } from "./api/reservation/ReservationApi";
 function App() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   let request = async (floor) => {
     try {
-      let response = await axios.get(`http://localhost:8080/api/auth/${floor}/seat`);
+      let response = await getFloorInfo(floor);
       let data = response.data;
       dispatch(ReserAction.setDrawing({ drawing: data.drawing }));
       dispatch(ReserAction.setSeatInfoArr({ seatInfoArr: data.seats }));
@@ -22,13 +22,14 @@ function App() {
         dispatch(ReserAction.setFloor({ floor: floorArr }));
       }
     } catch (error) {
-
+        console.log(error);
+        alert('도면을 불러오는데 실패 했습니다');
     }
   }
-  useEffect(() => {
-    /**
+  /**
      * 초기 층별 도면 요청
      */
+  useEffect(() => {
     request(1);
   }, []);
   function zoomIn(event) {
@@ -41,7 +42,6 @@ function App() {
     event.target.style.zIndex = 0;
     event.target.style.transition = "all 0.5s";
   }
-  console.log(state.ReserReducers.counter);
   return (
     <div>
       <div className="drawing" >
