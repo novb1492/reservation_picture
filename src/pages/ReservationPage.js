@@ -1,10 +1,11 @@
-import "../assets/common.css";
-import { useEffect, useRef, useState } from 'react';
+import "../assets/css/common.css";
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { ReserAction } from "../reducers/ReserReducers"
 import { getFloorInfo } from "../api/reservation/ReservationApi";
-import { useParams, Link } from 'react-router-dom';
-
+import { useParams } from 'react-router-dom';
+import SeatCompo from "../component/reservation/SeatCompo";
+import FloorCompo from "../component/reservation/FloorCompo";
 
 function ReservationPage() {
   const params = useParams();
@@ -36,37 +37,13 @@ function ReservationPage() {
   useEffect(() => {
     request(params.floor);
   }, [params.floor]);
-  function zoomIn(event) {
-    event.target.style.transform = "scale(1.2)"; //1.2배 확대
-    event.target.style.zIndex = 1;
-    event.target.style.transition = "all 0.5s";// 속도
-  }
-  function zoomOut(event) {
-    event.target.style.transform = "scale(1)";
-    event.target.style.zIndex = 0;
-    event.target.style.transition = "all 0.5s";
-  }
   return (
     <div>
-      <div className="drawing" >
+      <div className="drawing_container" >
         <img style={{ opacity: 0.9 }} className="seat" src={state.ReserReducers.drawing} alt="random photo" />
-        {
-          state.ReserReducers.counter !== null && state.ReserReducers.counter !== undefined
-            ? <img style={{ left: state.ReserReducers.counter.left + 'rem', top: state.ReserReducers.counter.top + 'rem' }} onMouseEnter={(event) => zoomIn(event)} onMouseLeave={(event) => { zoomOut(event) }} className="seat" src={state.ReserReducers.counter.url} alt="counter" />
-            : null
-        }
-        {state.ReserReducers.seatInfoArr.map(info => {
-          if (info.soldOut === true) {
-            return <img style={{ left: info.left + 'rem', top: info.top + 'rem', opacity: 0.5 }} key={info.id} className="seat" src={info.url} alt="seat" />
-          }
-          return <img style={{ left: info.left + 'rem', top: info.top + 'rem' }} onMouseEnter={(event) => zoomIn(event)} onMouseLeave={(event) => { zoomOut(event) }} key={info.id} className="seat" src={info.url} alt="seat" />
-        })}
+        <SeatCompo />
       </div>
-      <div>
-        {state.ReserReducers.floor.map((num) => {
-          return <button key={num} ><Link to={`/seat/${num}/floor`}>{num}층</Link></button>
-        })}
-      </div>
+      <FloorCompo />
     </div>
   );
 }
