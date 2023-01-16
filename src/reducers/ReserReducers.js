@@ -13,6 +13,7 @@ const ReserSlice = createSlice({
     reducers: {
         setFloor(state, action){
             let payload = action.payload;
+            console.log(payload);
             state.floor=payload.floor;
         },
         setDrawing(state,action){

@@ -3,7 +3,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { ReserAction } from "../reducers/ReserReducers"
 import { getFloorInfo } from "../api/reservation/ReservationApi";
+import { useParams, Link } from 'react-router-dom';
+
+
 function ReservationPage() {
+  const params = useParams();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   let request = async (floor) => {
@@ -14,24 +18,24 @@ function ReservationPage() {
       dispatch(ReserAction.setSeatInfoArr({ seatInfoArr: data.seats }));
       dispatch(ReserAction.setCounter({ counter: data.counter }));
       console.log(response);
-      if (floor === 1) {
-        let floorArr = [];
-        for (var i = 0; i < data.floor; i++) {
-          floorArr[i] = i + 1;
-        }
-        dispatch(ReserAction.setFloor({ floor: floorArr }));
+
+      let floorArr = [];
+      for (var i = 0; i < data.floor; i++) {
+        floorArr[i] = i + 1;
       }
+      dispatch(ReserAction.setFloor({ floor: floorArr }));
+
     } catch (error) {
       console.log(error);
       alert('도면을 불러오는데 실패 했습니다');
     }
   }
   /**
-     * 초기 층별 도면 요청
-     */
+  * 층별 도면 요청
+  */
   useEffect(() => {
-    request(1);
-  }, []);
+    request(params.floor);
+  }, [params.floor]);
   function zoomIn(event) {
     event.target.style.transform = "scale(1.2)"; //1.2배 확대
     event.target.style.zIndex = 1;
@@ -59,9 +63,9 @@ function ReservationPage() {
         })}
       </div>
       <div>
-        {state.ReserReducers.floor.map((num) => (
-          <button key={num} onClick={() => request(num)}>{num}층</button>
-        ))}
+        {state.ReserReducers.floor.map((num) => {
+          return <button key={num} ><Link to={`/seat/${num}/floor`}>{num}층</Link></button>
+        })}
       </div>
     </div>
   );
