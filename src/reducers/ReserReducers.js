@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 let init = {
     floor: [],
     drawing:null,
-    seatInfoArr:[]
+    seatInfoArr:[],
+    counter:null
 }
 const ReserSlice = createSlice({
     name: 'ReserSlice',
@@ -21,6 +22,10 @@ const ReserSlice = createSlice({
         setSeatInfoArr(state,action){
             let payload = action.payload;
             state.seatInfoArr=payload.seatInfoArr;
+        },
+        setCounter(state,action){
+            let payload = action.payload;
+            state.counter=payload.counter;
         }
     }
 })
