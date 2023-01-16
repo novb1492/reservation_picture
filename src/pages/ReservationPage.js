@@ -6,11 +6,18 @@ import { getFloorInfo } from "../api/reservation/ReservationApi";
 import { useParams } from 'react-router-dom';
 import SeatCompo from "../component/reservation/SeatCompo";
 import FloorCompo from "../component/reservation/FloorCompo";
-
+/**
+ * 예약페이지 
+ * @returns page
+ */
 function ReservationPage() {
   const params = useParams();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
+  /**
+   * 층별 도면 요청 함수
+   * @param {int} floor 
+   */
   let request = async (floor) => {
     try {
       let response = await getFloorInfo(floor);
@@ -33,6 +40,7 @@ function ReservationPage() {
   }
   /**
   * 층별 도면 요청
+  * params.floor 변경감지
   */
   useEffect(() => {
     request(params.floor);
