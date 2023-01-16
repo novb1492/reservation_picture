@@ -6,3 +6,15 @@
 .seat{
     position: absolute;
 }
+.product_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+.product_img{
+    width: 15rem;
+}
+.product_container{
+    display: flex;
+}
