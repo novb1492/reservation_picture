@@ -106,7 +106,7 @@ function ReservationProPage() {
         slidesPerView={getNum()}>
         {state.ReserReducers.products.map(product => {
           return (
-            <SwiperSlide key={`${product.id}div`}  onClick={() => { choice(product) }}>
+            <SwiperSlide key={`${Math.random()}`}  onClick={() => { choice(product) }}>
               <img key={`${product.id}img`} className="product_img" src={product.img} />
               <p key={`${product.id}n`}>{product.name}</p>
               <p key={`${product.id}p`}>{product.price}원</p>
