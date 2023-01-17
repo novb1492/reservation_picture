@@ -17,6 +17,7 @@ p {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    margin-left: 3rem;
 }
 
 .product_img {
@@ -25,6 +26,7 @@ p {
 
 .product_container {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .c_product_box {
@@ -32,15 +34,21 @@ p {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    margin-left: 3rem;
 }
 
 .c_product_container {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .time_table_container {
     display: flex;
     flex-wrap: wrap;
+}
+
+.c_product_img {
+    width: 10rem;
 }
 
 .time_table_box {
@@ -55,10 +63,26 @@ p {
     justify-content: center;
     cursor: pointer;
 }
-.time_cant{
+
+.time_cant {
     opacity: 0.5;
     cursor: auto;
 }
-.time_on{
+
+.time_on {
     background-color: red;
+}
+.count_in{
+    width: 6rem;
+}
+@media (max-width: 555px) {
+    .product_img {
+        width: 4rem;
+    }
+    .c_product_img {
+        width: 3rem;
+    }
+    .count_in{
+        width: 2rem;
+    }
 }
