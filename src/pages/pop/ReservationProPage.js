@@ -1,6 +1,6 @@
 import "../../assets/css/common.css";
 
-import { useEffect } from 'react';
+import { useEffect,useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { getProductsAndSeatInfo } from '../../api/reservation/ReservationApi';
@@ -15,7 +15,8 @@ function ReservationProPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-
+  const cpRefs=useRef([]);
+  let onChangeFocusInput=0;
   let request = async (page, kindId) => {
     try {
       let response = await getProductsAndSeatInfo(params.seatId, kindId, page);
@@ -63,7 +64,9 @@ function ReservationProPage() {
   function cancel(productId) {
     dispatch(ReserAction.removeProduct({ productId: productId }));
   }
-  console.log(state.ReserReducers);
+  function order() {
+    console.log(cpRefs);
+  }
   return (
     <div>
       <div className="product_container">
@@ -80,15 +83,17 @@ function ReservationProPage() {
       <div className="c_product_container">
         {state.ReserReducers.choiceProducts.map(product => {
           return (
-            <div key={`${product.id}cdiv`} className='c_product_box' onClick={() => { cancel(product.id) }}>
+            <div key={`${product.id}cdiv`} className='c_product_box'>
               <img key={`${product.id}cimg`} className="c_product_img" src={product.img} />
               <p key={`${product.id}cp`}>{product.name}</p>
               <button key={`${product.id}cc`} onClick={() => { cancel(product.id) }}>취소</button>
-              <input key={`${product.id}cn`} type="number"/>
+              <br></br>
+              <input key={`${product.id}cn`} ref={cpRefs} type="number" onChange={()=>{return onChangeFocusInput}}/>
             </div>
           );
         })}
       </div>
+      <button onClick={()=>{order()}}>주문하기</button>
       <button onClick={() => { changePage(-1) }}>donw</button>
       <button onClick={() => { changePage(1) }}>up</button>
       <button onClick={() => { changeKind(1) }}>kind1</button>

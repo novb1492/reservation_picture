@@ -48,6 +48,7 @@ const ReserSlice = createSlice({
                 }
             }
             if(!flag){
+                console.log(product);
                 state.choiceProducts=[...ocp,product];
             }else{
                 alert('이미 선택한 상품입니다');
