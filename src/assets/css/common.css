@@ -18,3 +18,12 @@
 .product_container{
     display: flex;
 }
+.c_product_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+.c_product_container{
+    display: flex;
+}

@@ -60,20 +60,33 @@ function ReservationProPage() {
   function choice(product) {
     dispatch(ReserAction.setChoiceProducts({ product: product }));
   }
-  
+  function cancel(productId) {
+    dispatch(ReserAction.removeProduct({ productId: productId }));
+  }
   console.log(state.ReserReducers);
   return (
     <div>
       <div className="product_container">
         {state.ReserReducers.products.map(product => {
           return (
-            <div key={`${product.id}div`} className='product_box' onClick={()=>{choice(product)}}>
+            <div key={`${product.id}div`} className='product_box' onClick={() => { choice(product) }}>
               <img key={`${product.id}img`} className="product_img" src={product.img} />
               <p key={`${product.id}p`}>{product.name}</p>
-              {product.count <= 0 ? <p>품절</p> : null}
             </div>
           );
-
+        })}
+      </div>
+      <h2>선택한 상품</h2>
+      <div className="c_product_container">
+        {state.ReserReducers.choiceProducts.map(product => {
+          return (
+            <div key={`${product.id}cdiv`} className='c_product_box' onClick={() => { cancel(product.id) }}>
+              <img key={`${product.id}cimg`} className="c_product_img" src={product.img} />
+              <p key={`${product.id}cp`}>{product.name}</p>
+              <button key={`${product.id}cc`} onClick={() => { cancel(product.id) }}>취소</button>
+              <input key={`${product.id}cn`} type="number"/>
+            </div>
+          );
         })}
       </div>
       <button onClick={() => { changePage(-1) }}>donw</button>

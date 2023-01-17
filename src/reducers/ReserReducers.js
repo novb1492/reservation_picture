@@ -42,7 +42,6 @@ const ReserSlice = createSlice({
             let ocp=state.choiceProducts;
             let flag=false;
             for(let i in ocp){
-                console.log(ocp[i]);
                 if(ocp[i].id===product.id){
                     flag=true;
                     break;
@@ -57,13 +56,15 @@ const ReserSlice = createSlice({
         },
         removeProduct(state,action){
             let payload = action.payload;
-            let product=payload.product;
+            let productId=payload.productId;
             let ocp=state.choiceProducts;
-            let index=ocp.indexOf(product);
-            if(index!==-1){
-                ocp.splice(index,1);
+            for(let i in ocp){
+                if(ocp[i].id===productId){
+                    ocp.splice(i,1);
+                    state.choiceProducts=ocp;
+                    break;
+                }
             }
-            state.choiceProducts=ocp;
         }
     }
 })
