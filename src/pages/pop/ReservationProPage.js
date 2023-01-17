@@ -59,13 +59,18 @@ function ReservationProPage() {
     setSearchParams(searchParams);
   }
   function choice(product) {
-    dispatch(ReserAction.setChoiceProducts({ product: product }));
+    let p={...product,count:"1"};
+    dispatch(ReserAction.setChoiceProducts({ product: p }));
   }
   function cancel(productId) {
     dispatch(ReserAction.removeProduct({ productId: productId }));
   }
   function order() {
-    console.log(cpRefs);
+    console.log(state.ReserReducers.choiceProducts);
+  }
+  function changeCount(params){
+    let e=params.event;
+    dispatch(ReserAction.changeCount({ productId: params.productId,count:e.target.value }));
   }
   return (
     <div>
@@ -86,9 +91,9 @@ function ReservationProPage() {
             <div key={`${product.id}cdiv`} className='c_product_box'>
               <img key={`${product.id}cimg`} className="c_product_img" src={product.img} />
               <p key={`${product.id}cp`}>{product.name}</p>
+              <p>수량</p>
+              <input key={`${product.id}cn`} min="1" type="number" onChange={(event)=>changeCount({productId:product.id,event:event})} />
               <button key={`${product.id}cc`} onClick={() => { cancel(product.id) }}>취소</button>
-              <br></br>
-              <input key={`${product.id}cn`} ref={cpRefs} type="number" onChange={()=>{return onChangeFocusInput}}/>
             </div>
           );
         })}

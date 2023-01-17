@@ -48,7 +48,6 @@ const ReserSlice = createSlice({
                 }
             }
             if(!flag){
-                console.log(product);
                 state.choiceProducts=[...ocp,product];
             }else{
                 alert('이미 선택한 상품입니다');
@@ -62,6 +61,18 @@ const ReserSlice = createSlice({
             for(let i in ocp){
                 if(ocp[i].id===productId){
                     ocp.splice(i,1);
+                    state.choiceProducts=ocp;
+                    break;
+                }
+            }
+        },
+        changeCount(state,action){
+            let payload = action.payload;
+            let productId=payload.productId;
+            let ocp=state.choiceProducts;
+            for(let i in ocp){
+                if(ocp[i].id===productId){
+                    ocp[i].count=payload.count;
                     state.choiceProducts=ocp;
                     break;
                 }
