@@ -79,6 +79,7 @@ function ReservationProPage() {
   }
   function order() {
     console.log(state.ReserReducers.choiceProducts);
+    console.log(state.ReserReducers.choiceTimes);
   }
   /**
    * 수량변경시
@@ -88,17 +89,25 @@ function ReservationProPage() {
     let e = params.event;
     dispatch(ReserAction.changeCount({ productId: params.productId, count: e.target.value }));
   }
-  function choiceTime(time,can) {
-    if(!can){
+  function choiceTime(time, can,event) {
+    if (!can) {
       alert('예약 할 수 없는 시간 입니다');
       return;
     }
+    dispatch(ReserAction.setChoiceTime({ time: time }));
+    console.log(event.target.classList);
   }
   return (
     <div>
       <hr></hr>
       <h2>상품</h2>
       <hr></hr>
+      <div>
+        <button onClick={() => { changePage(-1) }}>donw</button>
+        <button onClick={() => { changePage(1) }}>up</button>
+        <button onClick={() => { changeKind(1) }}>kind1</button>
+        <button onClick={() => { changeKind(2) }}>kind2</button>
+      </div>
       <div className="product_container">
         {state.ReserReducers.products.map(product => {
           return (
@@ -138,8 +147,8 @@ function ReservationProPage() {
         {
           state.ReserReducers.times.map(time => {
             return (
-              <div key={`${time.time}div`} className={`time_table_box ${time.can === true ? "time_can" : "time_cant"}`} onClick={()=>{choiceTime(time.time,time.can)}} >
-                <p key={`${time.time}p`}>{time.time}시~{time.time * 1 + 1}시</p>
+              <div key={`div${time.time}`} className={`time_table_box ${time.can === true ? "time_can" : "time_cant"}`} onClick={(event) => { choiceTime(time.time, time.can,event) }} >
+                <p key={`p${time.time}`}>{time.time}시~{time.time * 1 + 1}시</p>
               </div>
             )
           })
@@ -147,10 +156,7 @@ function ReservationProPage() {
       </div>
       <hr></hr>
       <button onClick={() => { order() }}>주문하기</button>
-      <button onClick={() => { changePage(-1) }}>donw</button>
-      <button onClick={() => { changePage(1) }}>up</button>
-      <button onClick={() => { changeKind(1) }}>kind1</button>
-      <button onClick={() => { changeKind(2) }}>kind2</button>
+
 
     </div>
   );

@@ -109,6 +109,19 @@ const ReserSlice = createSlice({
         setTimes(state, action){
             let payload = action.payload;
             state.times = payload.times;
+        },
+        setChoiceTime(state, action){
+            let payload = action.payload;
+            let selectTime=payload.time;
+            let ct=state.choiceTimes;
+            let index=ct.indexOf(selectTime);
+            console.log(index);
+            if(index===-1){
+                state.choiceTimes=[...ct,selectTime];
+                return;
+            }
+            ct.splice(index,1)
+            state.choiceTimes=ct;
         }
     }
 })
