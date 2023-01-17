@@ -10,7 +10,9 @@ let init = {
     time: [],
     seatInfo: [],
     choiceProducts: [],
-    totalPrice: 0
+    totalPrice: 0,
+    times:[],
+    choiceTimes:[]
 }
 
 const ReserSlice = createSlice({
@@ -103,6 +105,10 @@ const ReserSlice = createSlice({
                     break;
                 }
             }
+        },
+        setTimes(state, action){
+            let payload = action.payload;
+            state.times = payload.times;
         }
     }
 })

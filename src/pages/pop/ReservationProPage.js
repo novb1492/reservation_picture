@@ -21,6 +21,7 @@ function ReservationProPage() {
       let data = response.data;
       console.log(response);
       dispatch(ReserAction.setProducts({ products: data.products }));
+      dispatch(ReserAction.setTimes({ times: data.times }));
     } catch (error) {
       console.log(error);
       alert('해당좌석의 시간/메뉴 불러오는데 실패 했습니다');
@@ -56,6 +57,11 @@ function ReservationProPage() {
     searchParams.set('kp', 1);
     setSearchParams(searchParams);
   }
+  /**
+   * 상품 클릭시
+   * @param {object} product 
+   * @returns 
+   */
   function choice(product) {
     if (product.soldOut) {
       alert('품절된 상품입니다');
@@ -64,18 +70,35 @@ function ReservationProPage() {
     let p = { ...product, count: "1" };
     dispatch(ReserAction.setChoiceProducts({ product: p }));
   }
+  /**
+   * 상품 취소시
+   * @param {int} productId 
+   */
   function cancel(productId) {
     dispatch(ReserAction.removeProduct({ productId: productId }));
   }
   function order() {
     console.log(state.ReserReducers.choiceProducts);
   }
+  /**
+   * 수량변경시
+   * @param {object} params 
+   */
   function changeCount(params) {
     let e = params.event;
     dispatch(ReserAction.changeCount({ productId: params.productId, count: e.target.value }));
   }
+  function choiceTime(time,can) {
+    if(!can){
+      alert('예약 할 수 없는 시간 입니다');
+      return;
+    }
+  }
   return (
     <div>
+      <hr></hr>
+      <h2>상품</h2>
+      <hr></hr>
       <div className="product_container">
         {state.ReserReducers.products.map(product => {
           return (
@@ -90,6 +113,7 @@ function ReservationProPage() {
           );
         })}
       </div>
+      <hr></hr>
       <h2>선택한 상품</h2>
       <div className="c_product_container">
         {state.ReserReducers.choiceProducts.map(product => {
@@ -107,6 +131,21 @@ function ReservationProPage() {
       <div>
         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
       </div>
+      <hr></hr>
+      <h2>시간선택</h2>
+      <hr></hr>
+      <div className="time_table_container">
+        {
+          state.ReserReducers.times.map(time => {
+            return (
+              <div key={`${time.time}div`} className={`time_table_box ${time.can === true ? "time_can" : "time_cant"}`} onClick={()=>{choiceTime(time.time,time.can)}} >
+                <p key={`${time.time}p`}>{time.time}시~{time.time * 1 + 1}시</p>
+              </div>
+            )
+          })
+        }
+      </div>
+      <hr></hr>
       <button onClick={() => { order() }}>주문하기</button>
       <button onClick={() => { changePage(-1) }}>donw</button>
       <button onClick={() => { changePage(1) }}>up</button>
