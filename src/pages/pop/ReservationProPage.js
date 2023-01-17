@@ -87,8 +87,8 @@ function ReservationProPage() {
     dispatch(ReserAction.setChoiceTime({ time: time }));
   }
   function getNum() {
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); 
-    if(isMobile){
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
       return 3;
     }
     return 6;
@@ -102,11 +102,11 @@ function ReservationProPage() {
         <button onClick={() => { changeKind(1) }}>kind1</button>
         <button onClick={() => { changeKind(2) }}>kind2</button>
       </div>
-      <Swiper 
+      <Swiper
         slidesPerView={getNum()}>
         {state.ReserReducers.products.map(product => {
           return (
-            <SwiperSlide key={`${Math.random()}`}  onClick={() => { choice(product) }}>
+            <SwiperSlide key={`${product.id}sw`} onClick={() => { choice(product) }}>
               <img key={`${product.id}img`} className="product_img" src={product.img} />
               <p key={`${product.id}n`}>{product.name}</p>
               <p key={`${product.id}p`}>{product.price}원</p>

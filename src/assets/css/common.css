@@ -2,6 +2,10 @@ p {
     margin: 0;
 }
 
+div {
+    margin: 0;
+}
+
 .drawing_container {
     position: relative;
     left: 27.5%;
@@ -34,7 +38,7 @@ p {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    margin-left: 3rem;
+    margin-right: 2rem;
 }
 
 .c_product_container {
@@ -72,17 +76,21 @@ p {
 .time_on {
     background-color: red;
 }
-.count_in{
+
+.count_in {
     width: 6rem;
 }
+
 @media (max-width: 555px) {
     .product_img {
         width: 4rem;
     }
+
     .c_product_img {
         width: 3rem;
     }
-    .count_in{
+
+    .count_in {
         width: 2rem;
     }
 }
