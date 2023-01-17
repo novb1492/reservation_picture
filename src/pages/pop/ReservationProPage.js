@@ -59,6 +59,10 @@ function ReservationProPage() {
     setSearchParams(searchParams);
   }
   function choice(product) {
+    if(product.soldOut){
+      alert('품절된 상품입니다');
+      return;
+    }
     let p={...product,count:"1"};
     dispatch(ReserAction.setChoiceProducts({ product: p }));
   }
@@ -79,7 +83,11 @@ function ReservationProPage() {
           return (
             <div key={`${product.id}div`} className='product_box' onClick={() => { choice(product) }}>
               <img key={`${product.id}img`} className="product_img" src={product.img} />
-              <p key={`${product.id}p`}>{product.name}</p>
+              <p key={`${product.id}n`}>{product.name}</p>
+              <p key={`${product.id}p`}>{product.price}원</p>
+              {
+                product.soldOut === true ? <p>품절</p> : null
+              }
             </div>
           );
         })}
@@ -97,6 +105,9 @@ function ReservationProPage() {
             </div>
           );
         })}
+      </div>
+      <div>
+         <p>{state.ReserReducers.totalPrice}원</p>
       </div>
       <button onClick={()=>{order()}}>주문하기</button>
       <button onClick={() => { changePage(-1) }}>donw</button>
