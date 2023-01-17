@@ -1,6 +1,6 @@
 import "../../assets/css/common.css";
 
-import { useEffect,useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { getProductsAndSeatInfo } from '../../api/reservation/ReservationApi';
@@ -15,8 +15,6 @@ function ReservationProPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const cpRefs=useRef([]);
-  let onChangeFocusInput=0;
   let request = async (page, kindId) => {
     try {
       let response = await getProductsAndSeatInfo(params.seatId, kindId, page);
@@ -59,11 +57,11 @@ function ReservationProPage() {
     setSearchParams(searchParams);
   }
   function choice(product) {
-    if(product.soldOut){
+    if (product.soldOut) {
       alert('품절된 상품입니다');
       return;
     }
-    let p={...product,count:"1"};
+    let p = { ...product, count: "1" };
     dispatch(ReserAction.setChoiceProducts({ product: p }));
   }
   function cancel(productId) {
@@ -72,9 +70,9 @@ function ReservationProPage() {
   function order() {
     console.log(state.ReserReducers.choiceProducts);
   }
-  function changeCount(params){
-    let e=params.event;
-    dispatch(ReserAction.changeCount({ productId: params.productId,count:e.target.value }));
+  function changeCount(params) {
+    let e = params.event;
+    dispatch(ReserAction.changeCount({ productId: params.productId, count: e.target.value }));
   }
   return (
     <div>
@@ -100,16 +98,16 @@ function ReservationProPage() {
               <img key={`${product.id}cimg`} className="c_product_img" src={product.img} />
               <p key={`${product.id}cp`}>{product.name}</p>
               <p>수량</p>
-              <input key={`${product.id}cn`} min="1" type="number" onChange={(event)=>changeCount({productId:product.id,event:event})} />
+              <input key={`${product.id}cn`} min="1" type="number" onChange={(event) => changeCount({ productId: product.id, event: event })} />
               <button key={`${product.id}cc`} onClick={() => { cancel(product.id) }}>취소</button>
             </div>
           );
         })}
       </div>
       <div>
-         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")}원</p>
+        <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
       </div>
-      <button onClick={()=>{order()}}>주문하기</button>
+      <button onClick={() => { order() }}>주문하기</button>
       <button onClick={() => { changePage(-1) }}>donw</button>
       <button onClick={() => { changePage(1) }}>up</button>
       <button onClick={() => { changeKind(1) }}>kind1</button>

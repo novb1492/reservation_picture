@@ -57,7 +57,7 @@ const ReserSlice = createSlice({
                     기존금액 에서 +
                 */
                 for (let i in choiceProductArr) {
-                    tp = state.totalPrice*1 + choiceProductArr[i].price.replace(",", "") * choiceProductArr[i].count;
+                    tp = state.totalPrice * 1 + choiceProductArr[i].price.replace(",", "") * choiceProductArr[i].count;
                 }
                 state.totalPrice = tp;
             } else {
