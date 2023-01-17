@@ -115,7 +115,6 @@ const ReserSlice = createSlice({
             let selectTime=payload.time;
             let ct=state.choiceTimes;
             let index=ct.indexOf(selectTime);
-            console.log(index);
             if(index===-1){
                 state.choiceTimes=[...ct,selectTime];
                 return;

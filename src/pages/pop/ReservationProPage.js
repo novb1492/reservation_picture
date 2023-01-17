@@ -95,7 +95,6 @@ function ReservationProPage() {
       return;
     }
     dispatch(ReserAction.setChoiceTime({ time: time }));
-    console.log(event.target.classList);
   }
   return (
     <div>
@@ -147,7 +146,7 @@ function ReservationProPage() {
         {
           state.ReserReducers.times.map(time => {
             return (
-              <div key={`div${time.time}`} className={`time_table_box ${time.can === true ? "time_can" : "time_cant"}`} onClick={(event) => { choiceTime(time.time, time.can,event) }} >
+              <div key={`div${time.time}`} className={`time_table_box ${time.can === true ? "time_can" : "time_cant"} ${state.ReserReducers.choiceTimes.indexOf(time.time) === -1 ? null : "time_on"}` } onClick={(event) => { choiceTime(time.time, time.can,event) }} >
                 <p key={`p${time.time}`}>{time.time}시~{time.time * 1 + 1}시</p>
               </div>
             )
