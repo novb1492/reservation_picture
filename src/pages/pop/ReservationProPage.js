@@ -107,7 +107,7 @@ function ReservationProPage() {
         })}
       </div>
       <div>
-         <p>{state.ReserReducers.totalPrice}원</p>
+         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")}원</p>
       </div>
       <button onClick={()=>{order()}}>주문하기</button>
       <button onClick={() => { changePage(-1) }}>donw</button>
