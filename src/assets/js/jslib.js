@@ -8,3 +8,6 @@ export function zoomOut(event) {
     event.target.style.zIndex = 0;
     event.target.style.transition = "all 0.5s";
 }
+export function consoleLog(data) {
+    console.log(data);
+}
