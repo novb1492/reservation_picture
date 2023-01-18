@@ -1,6 +1,6 @@
 import "../../assets/css/common.css";
 
-import { useEffect,useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { getProductsAndSeatInfo, saveReservation } from '../../api/reservation/ReservationApi';
@@ -10,6 +10,7 @@ import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/css"; //basic
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import PaymentCompo from "../../component/payment/PaymentCompo";
 /**
  * 예약 시도 페이지 
  * @returns page
@@ -18,9 +19,10 @@ function ReservationProPage() {
   SwiperCore.use([Navigation, Pagination]);
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const nameRef=useRef();
-  const priceRef=useRef();
-  const paymentIdRef=useRef();
+  const nameRef = useRef();
+  const priceRef = useRef();
+  const paymentIdRef = useRef();
+  const paymentRef = useRef();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   let request = async (kindId) => {
@@ -77,11 +79,8 @@ function ReservationProPage() {
     try {
       let response = await saveReservation(JSON.stringify({ "choiceProducts": state.ReserReducers.choiceProducts, "choiceTimes": state.ReserReducers.choiceTimes }));
       console.log(response);
-      let data=response.data;
-      nameRef.current.value=data.name;
-      priceRef.current.value=data.price;
-      paymentIdRef.current.value=data.paymentid;
-      on_pay();
+      let data = response.data;
+      paymentRef.current.on_pay(data);
     } catch (error) {
       console.log(error);
       alert('예약에 실패했습니다');
@@ -119,12 +118,6 @@ function ReservationProPage() {
     }
     return 6;
   }
-  function on_pay() { 
-    var myform = document.mobileweb; 
-    myform.action = "https://mobile.inicis.com/smart/payment/";
-    myform.target = "_self";
-    myform.submit(); 
-  }  
   return (
     <div>
       <hr></hr>
@@ -182,22 +175,8 @@ function ReservationProPage() {
         }
       </div>
       <hr></hr>
-      <form  name="mobileweb" method="post" accept-charset="euc-kr" hidden >
-        <input type="text" name="P_NEXT_URL" value="http://localhost:8080/api/auth/payment"  />
-        <input type="text" name="P_INI_PAYMENT" value="CARD" /> 
-        <input type="text" name="P_RESERVED" value="twotrs_isp=Y&block_isp=Y&twotrs_isp_noti=N" /> 
-        <input type="text" name="P_MID" value="INIpayTest" /> 
-        <input type="text" name="P_OID" ref={paymentIdRef} value="" />  
-        <input type="text" name="P_GOODS" ref={nameRef} value="" /> 
-        <input type="text" name="P_AMT" ref={priceRef}  value="" /> 
-        <input type="text" name="P_UNAME" value="테스터" /> 
-        <input type="text" name="P_NOTI_URL" value="" />  
-        <input type="text" name="P_HPP_METHOD" value="1" />  
-        {/* <input type="button" name="pay" value="결제" onClick={on_pay} /> */}
-      </form>
+      <PaymentCompo ref={paymentRef} />
       <button onClick={order}>예약 하기</button>
-    
-
     </div>
   );
 }
