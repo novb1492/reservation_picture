@@ -70,7 +70,7 @@ function ReservationProPage() {
   /**
    * 예약 하기 버튼 클릭시
    */
-  async function order() {
+  let order=async ()=> {
     console.log(state.ReserReducers.choiceProducts);
     console.log(state.ReserReducers.choiceTimes);
     try {
@@ -134,7 +134,6 @@ function ReservationProPage() {
         <button onClick={() => { changeKind(2) }}>kind2</button>
       </div>
       <Swiper
-      spaceBetween={getBetween()}
         slidesPerView={getNum()}>
         {state.ReserReducers.products.map(product => {
           return (
@@ -182,7 +181,7 @@ function ReservationProPage() {
         }
       </div>
       <hr></hr>
-      <button onClick={() => { order() }}>예약 하기</button>
+      <button onClick={order}>예약 하기</button>
 
 
     </div>
