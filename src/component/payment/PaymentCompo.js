@@ -8,6 +8,12 @@ function PaymentCompo(prop, ref) {
         // 부모 컴포넌트에서 사용할 함수를 선언
         on_pay
     }))
+    /**
+     * name:"상품이름"
+     * price:"결제가격"
+     * paymentid:"주문번호"
+     * @param {object} data 
+     */
     function on_pay(data) {
         nameRef.current.value=data.name;
         priceRef.current.value=data.price;
