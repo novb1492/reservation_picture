@@ -1,8 +1,100 @@
-.drawing_container{
+p {
+    margin: 0;
+}
+
+div {
+    margin: 0;
+}
+
+.drawing_container {
     position: relative;
     left: 27.5%;
-        
+
 }
-.seat{
+
+.seat {
     position: absolute;
+}
+
+.product_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.product_img {
+    width: 15rem;
+}
+
+.product_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.c_product_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 2rem;
+}
+
+.c_product_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.time_table_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.c_product_img {
+    width: 10rem;
+}
+
+.time_table_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 3rem;
+    margin-bottom: 3rem;
+    border: 0.1rem solid;
+    width: 5rem;
+    height: 5rem;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.time_cant {
+    opacity: 0.5;
+    cursor: auto;
+}
+
+.time_on {
+    background-color: red;
+}
+
+.count_in {
+    width: 6rem;
+}
+
+@media (max-width: 555px) {
+    .product_img {
+        width: 4rem;
+    }
+
+    .c_product_img {
+        width: 3rem;
+    }
+
+    .count_in {
+        width: 2rem;
+    }
+}
+@media (max-width: 1400px) {
+    .product_img {
+        width: 6rem;
+    }
 }

@@ -1,11 +1,13 @@
 import { Route,BrowserRouter as Router, Routes } from "react-router-dom";
 import ReservationPage from "./pages/ReservationPage";
+import ReservationProPage from "./pages/ReservationProPage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/seat/:floor/floor" element={<ReservationPage></ReservationPage>}></Route>
+        <Route path="/seat/:floor/floor" element={<ReservationPage/>}></Route>
+        <Route path="/pro/:seatId" element={<ReservationProPage/>}></Route>
       </Routes>
     </Router>
   );
