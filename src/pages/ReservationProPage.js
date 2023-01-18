@@ -1,25 +1,19 @@
-import "../../assets/css/common.css";
+import "../assets/css/common.css";
 
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useParams } from 'react-router-dom';
-import { getProductsAndSeatInfo, saveReservation } from '../../api/reservation/ReservationApi';
-import { ReserAction } from "../../reducers/ReserReducers"
-import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import SwiperCore, { Navigation, Pagination } from "swiper";
-import "swiper/css"; //basic
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import PaymentCompo from "../../component/payment/PaymentCompo";
-import ProductCompo from "../../component/reservation/ProductCompo";
-import CproductCompo from "../../component/reservation/CproductCompo";
-import TimeTableCompo from "../../component/reservation/TimeTableCompo";
+import { getProductsAndSeatInfo, saveReservation } from '../api/reservation/ReservationApi';
+import { ReserAction } from "../reducers/ReserReducers"
+import PaymentCompo from "../component/payment/PaymentCompo";
+import ProductCompo from "../component/reservation/ProductCompo";
+import CproductCompo from "../component/reservation/CproductCompo";
+import TimeTableCompo from "../component/reservation/TimeTableCompo";
 /**
  * 예약 시도 페이지 
  * @returns page
  */
 function ReservationProPage() {
-  SwiperCore.use([Navigation, Pagination]);
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const paymentRef = useRef();
