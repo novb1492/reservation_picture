@@ -3,7 +3,7 @@ import "../../assets/css/common.css";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useParams } from 'react-router-dom';
-import { getProductsAndSeatInfo } from '../../api/reservation/ReservationApi';
+import { getProductsAndSeatInfo, saveReservation } from '../../api/reservation/ReservationApi';
 import { ReserAction } from "../../reducers/ReserReducers"
 import { Swiper, SwiperSlide } from "swiper/react"; // basic
 import SwiperCore, { Navigation, Pagination } from "swiper";
@@ -67,9 +67,21 @@ function ReservationProPage() {
   function cancel(productId) {
     dispatch(ReserAction.removeProduct({ productId: productId }));
   }
-  function order() {
+  /**
+   * 예약 하기 버튼 클릭시
+   */
+  async function order() {
     console.log(state.ReserReducers.choiceProducts);
     console.log(state.ReserReducers.choiceTimes);
+    try {
+      let response = await saveReservation(JSON.stringify({"choiceProducts":state.ReserReducers.choiceProducts,"choiceTimes":state.ReserReducers.choiceTimes}));
+      console.log(response);
+      alert('예약 성공');
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      alert('예약에 실패했습니다');
+    }
   }
   /**
    * 수량변경시
@@ -79,6 +91,12 @@ function ReservationProPage() {
     let e = params.event;
     dispatch(ReserAction.changeCount({ productId: params.productId, count: e.target.value }));
   }
+  /**
+   * 시간 선택시
+   * @param {int} time 
+   * @param {boolean} can 
+   * @returns 
+   */
   function choiceTime(time, can) {
     if (!can) {
       alert('예약 할 수 없는 시간 입니다');
@@ -86,6 +104,10 @@ function ReservationProPage() {
     }
     dispatch(ReserAction.setChoiceTime({ time: time }));
   }
+  /**
+   * 모바일/데스크톱 슬라이드 제어
+   * @returns 
+   */
   function getNum() {
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
@@ -93,6 +115,15 @@ function ReservationProPage() {
     }
     return 6;
   }
+  function getBetween() {
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      return 0;
+    }
+    return 100;
+  }
+  //-------------------------------------
+
   return (
     <div>
       <hr></hr>
@@ -103,10 +134,11 @@ function ReservationProPage() {
         <button onClick={() => { changeKind(2) }}>kind2</button>
       </div>
       <Swiper
+      spaceBetween={getBetween()}
         slidesPerView={getNum()}>
         {state.ReserReducers.products.map(product => {
           return (
-            <SwiperSlide key={`${product.id}sw`} style={{opacity:product.soldOut === true ? 0.5 : 1}} onClick={() => { choice(product) }}>
+            <SwiperSlide className="product_box" key={`${product.id}sw`} style={{opacity:product.soldOut === true ? 0.5 : 1}} onClick={() => { choice(product) }}>
               <img key={`${product.id}img`} className="product_img" src={product.img} />
               <p key={`${product.id}n`}>{product.name}</p>
               <p key={`${product.id}p`}>{product.price}원</p>
@@ -150,7 +182,7 @@ function ReservationProPage() {
         }
       </div>
       <hr></hr>
-      <button onClick={() => { order() }}>주문하기</button>
+      <button onClick={() => { order() }}>예약 하기</button>
 
 
     </div>

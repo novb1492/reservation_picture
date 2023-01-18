@@ -6,3 +6,6 @@ export function getFloorInfo(floor) {
 export function getProductsAndSeatInfo(seatId,kindId) {
     return instance.get(`/api/auth/product/${kindId}/list/${seatId}/time`);
 }
+export function saveReservation(body) {
+    return instance.post('/api/auth/save/reservation',body);
+}
