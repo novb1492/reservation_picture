@@ -11,6 +11,9 @@ import "swiper/css"; //basic
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import PaymentCompo from "../../component/payment/PaymentCompo";
+import ProductCompo from "../../component/reservation/ProductCompo";
+import CproductCompo from "../../component/reservation/CproductCompo";
+import TimeTableCompo from "../../component/reservation/TimeTableCompo";
 /**
  * 예약 시도 페이지 
  * @returns page
@@ -19,12 +22,13 @@ function ReservationProPage() {
   SwiperCore.use([Navigation, Pagination]);
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const nameRef = useRef();
-  const priceRef = useRef();
-  const paymentIdRef = useRef();
   const paymentRef = useRef();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
+  /**
+   * 해당 좌석의 메뉴 예약내역 api 요청함수
+   * @param {int} kindId 
+   */
   let request = async (kindId) => {
     try {
       let response = await getProductsAndSeatInfo(params.seatId, kindId);
@@ -53,26 +57,6 @@ function ReservationProPage() {
     setSearchParams(searchParams);
   }
   /**
-   * 상품 클릭시
-   * @param {object} product 
-   * @returns 
-   */
-  function choice(product) {
-    if (product.soldOut) {
-      alert('품절된 상품입니다');
-      return;
-    }
-    let p = { ...product, count: "1" };
-    dispatch(ReserAction.setChoiceProducts({ product: p }));
-  }
-  /**
-   * 상품 취소시
-   * @param {int} productId 
-   */
-  function cancel(productId) {
-    dispatch(ReserAction.removeProduct({ productId: productId }));
-  }
-  /**
    * 예약 하기 버튼 클릭시
    */
   let order = async () => {
@@ -86,38 +70,6 @@ function ReservationProPage() {
       alert('예약에 실패했습니다');
     }
   }
-  /**
-   * 수량변경시
-   * @param {object} params 
-   */
-  function changeCount(params) {
-    let e = params.event;
-    dispatch(ReserAction.changeCount({ productId: params.productId, count: e.target.value }));
-  }
-  /**
-   * 시간 선택시
-   * @param {int} time 
-   * @param {boolean} can 
-   * @returns 
-   */
-  function choiceTime(time, can) {
-    if (!can) {
-      alert('예약 할 수 없는 시간 입니다');
-      return;
-    }
-    dispatch(ReserAction.setChoiceTime({ time: time }));
-  }
-  /**
-   * 모바일/데스크톱 슬라이드 제어
-   * @returns 
-   */
-  function getNum() {
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      return 3;
-    }
-    return 6;
-  }
   return (
     <div>
       <hr></hr>
@@ -127,53 +79,17 @@ function ReservationProPage() {
         <button onClick={() => { changeKind(1) }}>kind1</button>
         <button onClick={() => { changeKind(2) }}>kind2</button>
       </div>
-      <Swiper
-        slidesPerView={getNum()}>
-        {state.ReserReducers.products.map(product => {
-          return (
-            <SwiperSlide className="product_box" key={`${product.id}sw`} style={{ opacity: product.soldOut === true ? 0.5 : 1 }} onClick={() => { choice(product) }}>
-              <img key={`${product.id}img`} className="product_img" src={product.img} />
-              <p key={`${product.id}n`}>{product.name}</p>
-              <p key={`${product.id}p`}>{product.price}원</p>
-              {
-                product.soldOut === true ? <p>품절</p> : null
-              }
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+      <ProductCompo />
       <hr></hr>
       <h2>선택한 상품</h2>
-      <div className="c_product_container">
-        {state.ReserReducers.choiceProducts.map(product => {
-          return (
-            <div key={`${product.id}cdiv`} className='c_product_box'>
-              <img key={`${product.id}cimg`} className="c_product_img" src={product.img} />
-              <p key={`${product.id}cp`}>{product.name}</p>
-              <p>수량</p>
-              <input className="count_in" key={`${product.id}cn`} min="1" type="number" onChange={(event) => changeCount({ productId: product.id, event: event })} />
-              <button key={`${product.id}cc`} onClick={() => { cancel(product.id) }}>취소</button>
-            </div>
-          );
-        })}
-      </div>
+      <CproductCompo />
       <div>
         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
       </div>
       <hr></hr>
       <h2>시간선택</h2>
       <hr></hr>
-      <div className="time_table_container">
-        {
-          state.ReserReducers.times.map(time => {
-            return (
-              <div key={`div${time.time}`} className={`time_table_box ${time.can === true ? "time_can" : "time_cant"} ${state.ReserReducers.choiceTimes.indexOf(time.time) === -1 ? null : "time_on"}`} onClick={() => { choiceTime(time.time, time.can) }} >
-                <p key={`p${time.time}`}>{time.time}시~{time.time * 1 + 1}시</p>
-              </div>
-            )
-          })
-        }
-      </div>
+      <TimeTableCompo />
       <hr></hr>
       <PaymentCompo ref={paymentRef} />
       <button onClick={order}>예약 하기</button>
