@@ -70,11 +70,11 @@ function ReservationProPage() {
   /**
    * 예약 하기 버튼 클릭시
    */
-  let order=async ()=> {
+  let order = async () => {
     console.log(state.ReserReducers.choiceProducts);
     console.log(state.ReserReducers.choiceTimes);
     try {
-      let response = await saveReservation(JSON.stringify({"choiceProducts":state.ReserReducers.choiceProducts,"choiceTimes":state.ReserReducers.choiceTimes}));
+      let response = await saveReservation(JSON.stringify({ "choiceProducts": state.ReserReducers.choiceProducts, "choiceTimes": state.ReserReducers.choiceTimes }));
       console.log(response);
       alert('예약 성공');
       window.location.reload();
@@ -115,15 +115,6 @@ function ReservationProPage() {
     }
     return 6;
   }
-  function getBetween() {
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      return 0;
-    }
-    return 100;
-  }
-  //-------------------------------------
-
   return (
     <div>
       <hr></hr>
@@ -137,7 +128,7 @@ function ReservationProPage() {
         slidesPerView={getNum()}>
         {state.ReserReducers.products.map(product => {
           return (
-            <SwiperSlide className="product_box" key={`${product.id}sw`} style={{opacity:product.soldOut === true ? 0.5 : 1}} onClick={() => { choice(product) }}>
+            <SwiperSlide className="product_box" key={`${product.id}sw`} style={{ opacity: product.soldOut === true ? 0.5 : 1 }} onClick={() => { choice(product) }}>
               <img key={`${product.id}img`} className="product_img" src={product.img} />
               <p key={`${product.id}n`}>{product.name}</p>
               <p key={`${product.id}p`}>{product.price}원</p>
