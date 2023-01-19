@@ -9,3 +9,6 @@ export function getProductsAndSeatInfo(seatId,kindId) {
 export function saveReservation(body) {
     return instance.post('/api/auth/save/reservation',body);
 }
+export function getReservationDetail(reservationId) {
+    return instance.get(`/api/auth/${reservationId}/reservation`);
+}

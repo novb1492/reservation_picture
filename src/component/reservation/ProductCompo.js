@@ -5,6 +5,7 @@ import { ReserAction } from "../../reducers/ReserReducers"
 import "swiper/css"; //basic
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { isMobile } from "../../assets/js/jslib";
 
 function ProductCompo() {
     SwiperCore.use([Navigation, Pagination]);
@@ -15,8 +16,7 @@ function ProductCompo() {
    * @returns 
    */
     function getNum() {
-        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (isMobile) {
+        if (isMobile()) {
             return 3;
         }
         return 6;

@@ -11,3 +11,7 @@ export function zoomOut(event) {
 export function consoleLog(data) {
     console.log(data);
 }
+export function isMobile() {
+    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    return isMobile;
+}
