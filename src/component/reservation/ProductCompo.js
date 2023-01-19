@@ -24,7 +24,6 @@ function ProductCompo() {
         return 6;
     }
     let windowResize = () => {
-        console.log(window.innerWidth);
         if(window.innerWidth<=555){
           setSlideCount(3);
           return;
