@@ -15,7 +15,7 @@ import { ReserAction } from "../reducers/ReserReducers"
  * 예약페이지 
  * @returns page
  */
-function MyPage() {
+function ReservationDetailPage() {
   SwiperCore.use([Navigation, Pagination]);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
@@ -110,4 +110,4 @@ function MyPage() {
   );
 }
 
-export default MyPage;
+export default ReservationDetailPage;
