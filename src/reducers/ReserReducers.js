@@ -12,7 +12,9 @@ let init = {
     choiceProducts: [],
     totalPrice: 0,
     times:[],
-    choiceTimes:[]
+    choiceTimes:[],
+    choiceSeat:[],
+    reservationInfo:{totalPrice:0,minPrice:0},
 }
 
 const ReserSlice = createSlice({
@@ -120,6 +122,22 @@ const ReserSlice = createSlice({
             }
             ct.splice(index,1)
             state.choiceTimes=ct;
+        },
+        setChoiceProducts2(state,action){
+            let payload = action.payload;
+            state.choiceProducts=payload.products;
+        },
+        setChoiceTimes2(state,action){
+            let payload = action.payload;
+            state.choiceTimes=payload.times;
+        },
+        setChoiceSeat(state,action){
+            let payload=action.payload;
+            state.choiceSeat=payload.seat;
+        },
+        setReservationInfo(state,action){
+            let payload=action.payload;
+            state.reservationInfo={totalPrice:payload.totalPrice,minPrice:payload.minPrice,refund:payload.refund,totalTime:payload.totalTime};
         }
     }
 })

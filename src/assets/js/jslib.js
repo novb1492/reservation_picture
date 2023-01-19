@@ -8,3 +8,13 @@ export function zoomOut(event) {
     event.target.style.zIndex = 0;
     event.target.style.transition = "all 0.5s";
 }
+export function consoleLog(data) {
+    console.log(data);
+}
+export function isMobile() {
+    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    return isMobile;
+}
+export function priceComma(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

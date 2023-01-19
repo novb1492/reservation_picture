@@ -9,6 +9,7 @@ import PaymentCompo from "../component/payment/PaymentCompo";
 import ProductCompo from "../component/reservation/ProductCompo";
 import CproductCompo from "../component/reservation/CproductCompo";
 import TimeTableCompo from "../component/reservation/TimeTableCompo";
+import { consoleLog } from "../assets/js/jslib";
 /**
  * 예약 시도 페이지 
  * @returns page
@@ -27,11 +28,11 @@ function ReservationProPage() {
     try {
       let response = await getProductsAndSeatInfo(params.seatId, kindId);
       let data = response.data;
-      console.log(response);
+      consoleLog(response);
       dispatch(ReserAction.setProducts({ products: data.products }));
       dispatch(ReserAction.setTimes({ times: data.times }));
     } catch (error) {
-      console.log(error);
+      consoleLog(error);
       alert('해당좌석의 시간/메뉴 불러오는데 실패 했습니다');
     }
   }
@@ -56,16 +57,20 @@ function ReservationProPage() {
   let order = async () => {
     try {
       let response = await saveReservation(JSON.stringify({ "choiceProducts": state.ReserReducers.choiceProducts, "choiceTimes": state.ReserReducers.choiceTimes }));
-      console.log(response);
+      consoleLog(response);
       let data = response.data;
       paymentRef.current.on_pay(data);
     } catch (error) {
-      console.log(error);
+      consoleLog(error);
       alert('예약에 실패했습니다');
     }
   }
   return (
     <div>
+      <hr></hr>
+      <h2>시간선택</h2>
+      <hr></hr>
+      <TimeTableCompo />
       <hr></hr>
       <h2>상품</h2>
       <hr></hr>
@@ -80,10 +85,6 @@ function ReservationProPage() {
       <div>
         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
       </div>
-      <hr></hr>
-      <h2>시간선택</h2>
-      <hr></hr>
-      <TimeTableCompo />
       <hr></hr>
       <PaymentCompo ref={paymentRef} />
       <button onClick={order}>예약 하기</button>

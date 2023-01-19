@@ -6,6 +6,7 @@ import { getFloorInfo } from "../api/reservation/ReservationApi";
 import { useParams } from 'react-router-dom';
 import SeatCompo from "../component/reservation/SeatCompo";
 import FloorCompo from "../component/reservation/FloorCompo";
+import { consoleLog } from "../assets/js/jslib";
 /**
  * 예약페이지 
  * @returns page
@@ -25,7 +26,7 @@ function ReservationPage() {
       dispatch(ReserAction.setDrawing({ drawing: data.drawing }));
       dispatch(ReserAction.setSeatInfoArr({ seatInfoArr: data.seats }));
       dispatch(ReserAction.setCounter({ counter: data.counter }));
-      console.log(response);
+      consoleLog(response);
 
       let floorArr = [];
       for (var i = 0; i < data.floor; i++) {
@@ -34,7 +35,7 @@ function ReservationPage() {
       dispatch(ReserAction.setFloor({ floor: floorArr }));
 
     } catch (error) {
-      console.log(error);
+      consoleLog(error);
       alert('도면을 불러오는데 실패 했습니다');
     }
   }
