@@ -14,7 +14,7 @@ let init = {
     times:[],
     choiceTimes:[],
     choiceSeat:[],
-    reservationInfo:{totalPrice:0},
+    reservationInfo:{totalPrice:0,minPrice:0},
 }
 
 const ReserSlice = createSlice({
