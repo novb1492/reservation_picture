@@ -1,8 +1,8 @@
 import "../assets/css/common.css";
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useSearchParams, useParams } from 'react-router-dom';
-import { consoleLog, isMobile, priceComma } from "../assets/js/jslib";
+import { useParams } from 'react-router-dom';
+import { consoleLog } from "../assets/js/jslib";
 import { getReservationDetail } from "../api/reservation/ReservationApi";
 import { ReserAction } from "../reducers/ReserReducers"
 import TimeTableCompo from "../component/reservation/detail/TimeTableCompo";
@@ -15,9 +15,7 @@ import ReserInfoCompo from "../component/reservation/detail/ReserInfoCompo";
  */
 function ReservationDetailPage() {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
   const params = useParams();
-  const [slideCount, setSlideCount] = useState(6);
   let request = async (reId) => {
     try {
       let response = await getReservationDetail(reId);
