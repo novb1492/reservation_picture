@@ -1,7 +1,7 @@
 import "../assets/css/common.css";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useParams } from 'react-router-dom';
 import { consoleLog, isMobile, priceComma } from "../assets/js/jslib";
 import { Swiper, SwiperSlide } from "swiper/react"; // basic
 import SwiperCore, { Navigation, Pagination } from "swiper";
@@ -19,7 +19,8 @@ function ReservationDetailPage() {
   SwiperCore.use([Navigation, Pagination]);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const params = useParams();
+  const [slideCount, setSlideCount] = useState(6);
   let request = async (reId) => {
     try {
       let response = await getReservationDetail(reId);
@@ -35,20 +36,22 @@ function ReservationDetailPage() {
     }
   }
   /**
-  * 기간별 예약 내역 
-  * 조회 페이징/기간 감지
+  * 해당 예약번호로 조회
   */
   useEffect(() => {
-    request(searchParams.get('reId'));
+    request(params.reservationId);
   }, []);
-  function getNum() {
-    if (isMobile()) {
-      return 3;
+  let windowResize = () => {
+    if(window.innerWidth<=555){
+      setSlideCount(3);
     }
-    return 6;
-  }
+    setSlideCount(6);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", windowResize);
+  }, []);
   function cancel(paymentId) {
-    consoleLog(searchParams.get('reId'));
+    consoleLog(params.reservationId);
     consoleLog(paymentId);
   }
   return (
@@ -77,7 +80,7 @@ function ReservationDetailPage() {
       <h2>선택한 상품</h2>
       <hr></hr>
       <Swiper
-        slidesPerView={getNum()}>
+        slidesPerView={slideCount}>
         {state.ReserReducers.choiceProducts.map(product => {
           return (
             <SwiperSlide key={`${product.id}sw`} className='c_product_box2'>
@@ -91,7 +94,7 @@ function ReservationDetailPage() {
             </SwiperSlide>
           );
         })}
-        <SwiperSlide><Link to={`/product/${searchParams.get('reId')}/plus`}>제품추가</Link></SwiperSlide>
+        <SwiperSlide><Link to={`/product/${params.reservationId}/plus`}>제품추가</Link></SwiperSlide>
       </Swiper>
       <hr></hr>
       <h2>예약 정보</h2>
@@ -103,7 +106,7 @@ function ReservationDetailPage() {
         <p>최소결제금액:{priceComma(state.ReserReducers.reservationInfo.minPrice)}원</p>
         <p>상품 주문 접수완료시 취소 불가</p>
         <p>가장 빠른 예약 시간 30분전 부터 취소불가</p>
-        {state.ReserReducers.reservationInfo.refund === true ? <button>전체 취소</button> : <p>취소 불가</p>}
+        {state.ReserReducers.reservationInfo.refund === true ? <button >전체 취소</button> : <p>취소 불가</p>}
       </div>
       <hr></hr>
     </div>

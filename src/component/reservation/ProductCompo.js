@@ -6,8 +6,10 @@ import "swiper/css"; //basic
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { isMobile } from "../../assets/js/jslib";
+import { useEffect, useState } from "react";
 
 function ProductCompo() {
+    const [slideCount, setSlideCount] = useState(6);
     SwiperCore.use([Navigation, Pagination]);
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
@@ -21,6 +23,17 @@ function ProductCompo() {
         }
         return 6;
     }
+    let windowResize = () => {
+        console.log(window.innerWidth);
+        if(window.innerWidth<=555){
+          setSlideCount(3);
+          return;
+        }
+        setSlideCount(6);
+      };
+    useEffect(() => {
+        window.addEventListener("resize", windowResize);
+    }, []);
     /**
    * 상품 클릭시
    * @param {object} product 
@@ -36,7 +49,7 @@ function ProductCompo() {
     }
     return (
         <Swiper
-            slidesPerView={getNum()}>
+            slidesPerView={slideCount}>
             {state.ReserReducers.products.map(product => {
                 return (
                     <SwiperSlide className="product_box" key={`${product.id}sw`} style={{ opacity: product.soldOut === true ? 0.5 : 1 }} onClick={() => { choice(product) }}>
