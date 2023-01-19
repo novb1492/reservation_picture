@@ -3,20 +3,17 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useSearchParams, useParams } from 'react-router-dom';
 import { consoleLog, isMobile, priceComma } from "../assets/js/jslib";
-import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import SwiperCore, { Navigation, Pagination } from "swiper";
-import "swiper/css"; //basic
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { getReservationDetail } from "../api/reservation/ReservationApi";
 import { ReserAction } from "../reducers/ReserReducers"
+import TimeTableCompo from "../component/reservation/detail/TimeTableCompo";
+import CproductCompo from "../component/reservation/detail/CproductCompo";
+import ReserInfoCompo from "../component/reservation/detail/ReserInfoCompo";
 
 /**
  * 예약페이지 
  * @returns page
  */
 function ReservationDetailPage() {
-  SwiperCore.use([Navigation, Pagination]);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const params = useParams();
@@ -41,73 +38,20 @@ function ReservationDetailPage() {
   useEffect(() => {
     request(params.reservationId);
   }, []);
-  let windowResize = () => {
-    if(window.innerWidth<=555){
-      setSlideCount(3);
-    }
-    setSlideCount(6);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", windowResize);
-  }, []);
-  function cancel(paymentId) {
-    consoleLog(params.reservationId);
-    consoleLog(paymentId);
-  }
   return (
     <div>
       <hr></hr>
       <h2>예약시간</h2>
       <hr></hr>
-      <div className="time_table_container">
-        {
-          state.ReserReducers.choiceTimes.map(time => {
-            return (
-              <div key={`div${time.time}`} className={`time_table_box2 ${time.cancel === true ? "time_can" : "time_cant"} `}>
-                <p key={`p${time.time}`}>{time.time}시~{time.time * 1 + 1}시</p>
-                {
-                  time.cancel === true ? <button >취소</button> : <p key={`${time.time}cc`} disabled>취소불가</p>
-                }
-              </div>
-            )
-          })
-        }
-        <div className={`time_table_box `}>
-          <p>시간추가</p>
-        </div>
-      </div>
+      <TimeTableCompo />
       <hr></hr>
       <h2>선택한 상품</h2>
       <hr></hr>
-      <Swiper
-        slidesPerView={slideCount}>
-        {state.ReserReducers.choiceProducts.map(product => {
-          return (
-            <SwiperSlide key={`${product.id}sw`} className='c_product_box2'>
-              <img key={`${product.id}cimg`} className="c_product_img" src={product.img} />
-              <p key={`${product.id}cp`}>{product.name}</p>
-              <p>수량 :{product.count}</p>
-              <p>결제금액:{priceComma(product.price)}</p>
-              {
-                product.refund === true ? <p key={`${product.id}cc`} disabled>취소불가</p> : <button key={`${product.id}cc`} onClick={() => { cancel(product.paymentId) }}>취소</button>
-              }
-            </SwiperSlide>
-          );
-        })}
-        <SwiperSlide><Link to={`/product/${params.reservationId}/plus`}>제품추가</Link></SwiperSlide>
-      </Swiper>
+      <CproductCompo />
       <hr></hr>
       <h2>예약 정보</h2>
       <hr></hr>
-      <div>
-        <p>{state.ReserReducers.choiceSeat.seatName}좌석</p>
-        <p>결제금액: {priceComma(state.ReserReducers.reservationInfo.totalPrice)}원</p>
-        <p>이용시간:{state.ReserReducers.reservationInfo.totalTime}시간</p>
-        <p>최소결제금액:{priceComma(state.ReserReducers.reservationInfo.minPrice)}원</p>
-        <p>상품 주문 접수완료시 취소 불가</p>
-        <p>가장 빠른 예약 시간 30분전 부터 취소불가</p>
-        {state.ReserReducers.reservationInfo.refund === true ? <button >전체 취소</button> : <p>취소 불가</p>}
-      </div>
+      <ReserInfoCompo />
       <hr></hr>
     </div>
   );
