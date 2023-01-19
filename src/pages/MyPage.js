@@ -22,10 +22,11 @@ function MyPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   let request = async (reId) => {
     try {
-      let response=await getReservationDetail(reId);
+      let response = await getReservationDetail(reId);
       consoleLog(response);
-      let data=response.data;
+      let data = response.data;
       dispatch(ReserAction.setChoiceProducts2({ products: data.products }));
+      dispatch(ReserAction.setChoiceTimes2({ times: data.times }));
     } catch (error) {
       consoleLog(error);
       alert('예약 상세내역을 불러오는데 실패 했습니다');
@@ -49,23 +50,48 @@ function MyPage() {
     consoleLog(productId);
   }
   return (
-    <Swiper
-      slidesPerView={getNum()}>
-      {state.ReserReducers.choiceProducts.map(product => {
-        return (
-          <SwiperSlide key={`${product.id}sw`} className='c_product_box'>
-            <img key={`${product.id}cimg`} className="c_product_img" src={product.img} />
-            <p key={`${product.id}cp`}>{product.name}</p>
-            <p>수량</p>
-            <input className="count_in" key={`${product.id}cn`} type="text" value={product.count} disabled />
-             {
-              product.refund === true ? <button key={`${product.id}cc`} disabled>취소</button> : <button key={`${product.id}cc`} onClick={() => { cancel(product.id) }}>취소</button>
-             }
-          </SwiperSlide>
-        );
-      })}
-      <SwiperSlide><Link to={`/product/${searchParams.get('reId')}/plus`}>제품추가</Link></SwiperSlide>
-    </Swiper>
+    <div>
+      <hr></hr>
+      <h2>선택한 상품</h2>
+      <hr></hr>
+      <Swiper
+        slidesPerView={getNum()}>
+        {state.ReserReducers.choiceProducts.map(product => {
+          return (
+            <SwiperSlide key={`${product.id}sw`} className='c_product_box2'>
+              <img key={`${product.id}cimg`} className="c_product_img" src={product.img} />
+              <p key={`${product.id}cp`}>{product.name}</p>
+              <p>수량 :{product.count}</p>
+              {
+                product.refund === true ? <p key={`${product.id}cc`} disabled>취소불가</p> : <button key={`${product.id}cc`} onClick={() => { cancel(product.id) }}>취소</button>
+              }
+            </SwiperSlide>
+          );
+        })}
+        <SwiperSlide><Link to={`/product/${searchParams.get('reId')}/plus`}>제품추가</Link></SwiperSlide>
+      </Swiper>
+      <hr></hr>
+      <h2>예약시간</h2>
+      <hr></hr>
+      <div className="time_table_container">
+        {
+          state.ReserReducers.choiceTimes.map(time => {
+            return (
+              <div key={`div${time.time}`} className={`time_table_box2 ${time.cancel === true ? "time_can" : "time_cant"} `}>
+                <p key={`p${time.time}`}>{time.time}시~{time.time * 1 + 1}시</p>
+                {
+                  time.cancel === true ? <button >취소</button> : <p key={`${time.time}cc`} disabled>취소불가</p>
+                }
+              </div>
+            )
+          })
+        }
+        <div className={`time_table_box `}>
+          <p>시간추가</p>
+        </div>
+      </div>
+      <hr></hr>
+    </div>
   );
 }
 

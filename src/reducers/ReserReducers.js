@@ -125,6 +125,10 @@ const ReserSlice = createSlice({
         setChoiceProducts2(state,action){
             let payload = action.payload;
             state.choiceProducts=payload.products;
+        },
+        setChoiceTimes2(state,action){
+            let payload = action.payload;
+            state.choiceTimes=payload.times;
         }
     }
 })
