@@ -68,6 +68,10 @@ function ReservationProPage() {
   return (
     <div>
       <hr></hr>
+      <h2>시간선택</h2>
+      <hr></hr>
+      <TimeTableCompo />
+      <hr></hr>
       <h2>상품</h2>
       <hr></hr>
       <div>
@@ -81,10 +85,6 @@ function ReservationProPage() {
       <div>
         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
       </div>
-      <hr></hr>
-      <h2>시간선택</h2>
-      <hr></hr>
-      <TimeTableCompo />
       <hr></hr>
       <PaymentCompo ref={paymentRef} />
       <button onClick={order}>예약 하기</button>

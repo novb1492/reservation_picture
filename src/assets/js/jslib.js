@@ -15,3 +15,6 @@ export function isMobile() {
     let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     return isMobile;
 }
+export function priceComma(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
