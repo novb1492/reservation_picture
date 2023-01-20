@@ -5,7 +5,6 @@ import { ReserAction } from "../../reducers/ReserReducers"
 import "swiper/css"; //basic
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { isMobile } from "../../assets/js/jslib";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 

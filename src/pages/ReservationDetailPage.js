@@ -1,19 +1,25 @@
 import "../assets/css/common.css";
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from 'react-router-dom';
-import { consoleLog } from "../assets/js/jslib";
+import { Link, useParams } from 'react-router-dom';
+import { consoleLog, priceComma } from "../assets/js/jslib";
 import { getReservationDetail } from "../api/reservation/ReservationApi";
 import { ReserAction } from "../reducers/ReserReducers"
 import TimeTableCompo from "../component/reservation/detail/TimeTableCompo";
-import CproductCompo from "../component/reservation/detail/CproductCompo";
 import ReserInfoCompo from "../component/reservation/detail/ReserInfoCompo";
-
+import { Swiper, SwiperSlide } from "swiper/react"; // basic
+import SwiperCore, { Navigation, Pagination } from "swiper";
+import "swiper/css"; //basic
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import CproductCompo from "../component/reservation/CproductCompo";
 /**
  * 예약페이지 
  * @returns page
  */
 function ReservationDetailPage() {
+  const [slideCount, setSlideCount] = useState(6);
+  SwiperCore.use([Navigation, Pagination]);
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const params = useParams();
@@ -37,6 +43,19 @@ function ReservationDetailPage() {
   useEffect(() => {
     request(params.reservationId);
   }, []);
+  let windowResize = () => {
+    if (window.innerWidth <= 555) {
+      setSlideCount(3);
+    }
+    setSlideCount(6);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", windowResize);
+  }, []);
+  function cancel(paymentId) {
+    consoleLog(params.reservationId);
+    consoleLog(paymentId);
+  }
   return (
     <div>
       <hr></hr>
@@ -46,7 +65,22 @@ function ReservationDetailPage() {
       <hr></hr>
       <h2>선택한 상품</h2>
       <hr></hr>
-      <CproductCompo />
+      <Swiper
+            slidesPerView={slideCount}>
+            {state.ReserReducers.choiceProducts.map(product => {
+                return (
+                    <SwiperSlide key={`${product.id}sw`} className='c_product_box2'>
+                        <CproductCompo product={product} />
+                        <p>수량 :{product.count}</p>
+                        <p>결제금액:{priceComma(product.price)}</p>
+                        {
+                            product.refund === true ? <p key={`${product.id}cc`} disabled>취소불가</p> : <button key={`${product.id}cc`} onClick={() => { cancel(product.paymentId) }}>취소</button>
+                        }
+                    </SwiperSlide>
+                );
+            })}
+            <SwiperSlide><Link to={`/product/${params.reservationId}/plus?k=1`}>제품추가</Link></SwiperSlide>
+        </Swiper>
       <hr></hr>
       <h2>예약 정보</h2>
       <hr></hr>
