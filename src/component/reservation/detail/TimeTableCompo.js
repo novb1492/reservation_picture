@@ -1,13 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-
-function TimeTableCompo() {
-    const state = useSelector((state) => state);
-    const dispatch = useDispatch();
-    
+function TimeTableCompo(props) {
     return (
         <div className="time_table_container">
         {
-          state.ReserReducers.choiceTimes.map(time => {
+          props.choiceTimes.map(time => {
             return (
               <div key={`div${time.time}`} className={`time_table_box2 ${time.cancel === true ? "time_can" : "time_cant"} `}>
                 <p key={`p${time.time}`}>{time.time}시~{time.time * 1 + 1}시</p>

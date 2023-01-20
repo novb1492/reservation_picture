@@ -24,14 +24,14 @@ function ReservationDetailPage() {
   const dispatch = useDispatch();
   const params = useParams();
   const [choiceProducts,setChoiceProducts]=useState();
-  const [times,setTimes]=useState();
+  const [times,setTimes]=useState([]);
   let request = async (reId) => {
     try {
       let response = await getReservationDetail(reId);
       consoleLog(response);
       let data = response.data;
       setChoiceProducts(data.products);
-      dispatch(ReserAction.setChoiceTimes2({ times: data.times }));
+      setTimes(data.times);
       dispatch(ReserAction.setChoiceSeat({ seat: data.seat }));
       dispatch(ReserAction.setReservationInfo({ totalPrice: data.totalPrice, minPrice: data.minPrice, refund: data.refund, totalTime: data.totalTime }));
     } catch (error) {
@@ -63,7 +63,7 @@ function ReservationDetailPage() {
       <hr></hr>
       <h2>예약시간</h2>
       <hr></hr>
-      <TimeTableCompo />
+      <TimeTableCompo choiceTimes={times} />
       <hr></hr>
       <h2>선택한 상품</h2>
       <hr></hr>
