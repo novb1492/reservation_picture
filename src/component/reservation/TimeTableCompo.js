@@ -27,7 +27,7 @@ function TimeTableCompo() {
     }, []);
     useEffect(() => {
         dispatch(changeMinPrice(state.ReserReducers.choiceTimes.length));
-    }, [state.ReserReducers.choiceTimes]);
+    }, [state.ReserReducers.choiceTimes.length]);
     return (
         <div>
             <div className="time_table_container">

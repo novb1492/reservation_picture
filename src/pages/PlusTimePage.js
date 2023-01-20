@@ -17,7 +17,6 @@ function PlusTimePage() {
     const params = useParams();
     const [totalPrice, setTotalPrice] = useState(0);
     const [time, setTime] = useState(0);
-    const [minPrice, setMinPrice] = useState(0);
     let request = async () => {
         try {
             let response = await getTimesByReservationId(params.reservationId);
@@ -26,7 +25,6 @@ function PlusTimePage() {
             dispatch(ReserAction.setTimes({ times: data.times }));
             setTotalPrice(data.totalPrice);
             setTime(data.totalTime);
-            setMinPrice(data.minPrice);
         } catch (error) {
             consoleLog(error);
             alert('시간표를 가져오는데 실패했습니다');

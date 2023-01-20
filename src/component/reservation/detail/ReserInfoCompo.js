@@ -3,7 +3,7 @@ import { priceComma } from "../../../assets/js/jslib";
 
 function ReserInfoCompo() {
   const state = useSelector((state) => state);
-
+  console.log(state.ReserReducers.reservationInfo.totalPrice);
   return (
     <div>
       {

@@ -154,7 +154,7 @@ const ReserSlice = createSlice({
 export const changeMinPrice = (size) => async (dispatch) => {
     try {
         let response = await getPriceByTime(size);
-        dispatch(ReserSlice.actions.setReservationInfo(response.data));
+        dispatch(ReserSlice.actions.setReservationInfo({minPrice:response.data.minPrice}));
     } catch (error) {
         consoleLog(error);
         alert('최소 주문 금액 계산에 실패했습니다');
