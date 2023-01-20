@@ -44,7 +44,7 @@ function CproductCompo() {
                     </SwiperSlide>
                 );
             })}
-            <SwiperSlide><Link to={`/product/${params.reservationId}/plus`}>제품추가</Link></SwiperSlide>
+            <SwiperSlide><Link to={`/product/${params.reservationId}/plus?k=1`}>제품추가</Link></SwiperSlide>
         </Swiper>
     );
 }

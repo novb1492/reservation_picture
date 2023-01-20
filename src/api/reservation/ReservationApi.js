@@ -12,3 +12,6 @@ export function saveReservation(body) {
 export function getReservationDetail(reservationId) {
     return instance.get(`/api/auth/${reservationId}/reservation`);
 }
+export function getReservationAndProduct(reservationId,kindId) {
+    return instance.get(`/api/auth/${reservationId}/${kindId}/product/list`);
+}
