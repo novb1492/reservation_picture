@@ -6,21 +6,15 @@ import { consoleLog } from "../assets/js/jslib";
 import { getReservationAndProduct, getReservationDetail, plusProduct } from "../api/reservation/ReservationApi";
 import { ReserAction } from "../reducers/ReserReducers"
 import ProductCompo from "../component/reservation/ProductCompo";
-import CproductCompo from "../component/reservation/CproductCompo";
 import ReserInfoCompo from "../component/reservation/detail/ReserInfoCompo";
 import PaymentCompo from "../component/payment/PaymentCompo";
-import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import SwiperCore, { Navigation, Pagination } from "swiper";
-import "swiper/css"; //basic
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import ChoiceProductCompo from "../component/reservation/ChoiceProductCompo";
 /**
  * 예약페이지 
  * @returns page
  */
 function PlusProductPage() {
     const state = useSelector((state) => state);
-    const [slideCount, setSlideCount] = useState(6);
     const dispatch = useDispatch();
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -43,7 +37,6 @@ function PlusProductPage() {
     useEffect(() => {
         request(params.reservationId, searchParams.get('k'));
     }, [searchParams.get('k')]);
-
     let order = async () => {
         try {
             let response = await plusProduct(params.reservationId, JSON.stringify({ "choiceProducts": state.ReserReducers.choiceProducts }));
@@ -55,46 +48,12 @@ function PlusProductPage() {
             alert('예약에 실패했습니다');
         }
     }
-    /**
-  * 수량변경시
-  * @param {object} params 
-  */
-    function changeCount(params) {
-        let e = params.event;
-        dispatch(ReserAction.changeCount({ productId: params.productId, count: e.target.value }));
-    }
-    /**
-     * 상품 취소시
-     * @param {int} productId 
-     */
-    function cancel(productId) {
-        dispatch(ReserAction.removeProduct({ productId: productId }));
-    }
-    let windowResize = () => {
-        if (window.innerWidth <= 555) {
-            setSlideCount(3);
-        }
-        setSlideCount(6);
-    };
-    useEffect(() => {
-        window.addEventListener("resize", windowResize);
-    }, []);
     return (
         <div>
             <ProductCompo />
             <hr></hr>
             <h2>선택한 상품</h2>
-            <Swiper slidesPerView={slideCount}>
-                {state.ReserReducers.choiceProducts.map(product => {
-                    return (
-                        <SwiperSlide key={`${product.id}cdiv`} className='c_product_box'>
-                            <CproductCompo product={product} />
-                            <input className="count_in" key={`${product.id}cn`} min="1" type="number" onChange={(event) => changeCount({ productId: product.id, event: event })} />
-                            <button key={`${product.id}cc`} onClick={() => { cancel(product.id) }}>취소</button>
-                        </SwiperSlide>
-                    );
-                })}
-            </Swiper>
+            <ChoiceProductCompo/>
             <div>
                 <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
             </div>

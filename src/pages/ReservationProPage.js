@@ -7,21 +7,14 @@ import { getProductsAndSeatInfo, saveReservation } from '../api/reservation/Rese
 import { ReserAction } from "../reducers/ReserReducers"
 import PaymentCompo from "../component/payment/PaymentCompo";
 import ProductCompo from "../component/reservation/ProductCompo";
-import CproductCompo from "../component/reservation/CproductCompo";
 import TimeTableCompo from "../component/reservation/TimeTableCompo";
 import { consoleLog } from "../assets/js/jslib";
-import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import SwiperCore, { Navigation, Pagination } from "swiper";
-import "swiper/css"; //basic
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import ChoiceProductCompo from "../component/reservation/ChoiceProductCompo";
 /**
  * 예약 시도 페이지 
  * @returns page
  */
 function ReservationProPage() {
-  const [slideCount, setSlideCount] = useState(6);
-  SwiperCore.use([Navigation, Pagination]);
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const paymentRef = useRef();
@@ -63,30 +56,6 @@ function ReservationProPage() {
       alert('예약에 실패했습니다');
     }
   }
-  /**
-  * 수량변경시
-  * @param {object} params 
-  */
-  function changeCount(params) {
-    let e = params.event;
-    dispatch(ReserAction.changeCount({ productId: params.productId, count: e.target.value }));
-  }
-  /**
-   * 상품 취소시
-   * @param {int} productId 
-   */
-  function cancel(productId) {
-    dispatch(ReserAction.removeProduct({ productId: productId }));
-  }
-  let windowResize = () => {
-    if (window.innerWidth <= 555) {
-      setSlideCount(3);
-    }
-    setSlideCount(6);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", windowResize);
-}, []);
   return (
     <div>
       <hr></hr>
@@ -96,17 +65,7 @@ function ReservationProPage() {
       <ProductCompo />
       <hr></hr>
       <h2>선택한 상품</h2>
-      <Swiper slidesPerView={slideCount}>
-        {state.ReserReducers.choiceProducts.map(product => {
-          return (
-            <SwiperSlide key={`${product.id}cdiv`} className='c_product_box'>
-              <CproductCompo product={product} />
-              <input className="count_in" key={`${product.id}cn`} min="1" type="number" onChange={(event) => changeCount({ productId: product.id, event: event })} />
-              <button key={`${product.id}cc`} onClick={() => { cancel(product.id) }}>취소</button>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+      <ChoiceProductCompo/>
       <div>
         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
       </div>
