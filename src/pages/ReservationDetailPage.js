@@ -23,12 +23,14 @@ function ReservationDetailPage() {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const params = useParams();
+  const [choiceProducts,setChoiceProducts]=useState();
+  const [times,setTimes]=useState();
   let request = async (reId) => {
     try {
       let response = await getReservationDetail(reId);
       consoleLog(response);
       let data = response.data;
-      dispatch(ReserAction.setChoiceProducts2({ products: data.products }));
+      setChoiceProducts(data.products);
       dispatch(ReserAction.setChoiceTimes2({ times: data.times }));
       dispatch(ReserAction.setChoiceSeat({ seat: data.seat }));
       dispatch(ReserAction.setReservationInfo({ totalPrice: data.totalPrice, minPrice: data.minPrice, refund: data.refund, totalTime: data.totalTime }));
@@ -67,7 +69,7 @@ function ReservationDetailPage() {
       <hr></hr>
       <Swiper
             slidesPerView={slideCount}>
-            {state.ReserReducers.choiceProducts.map(product => {
+            {choiceProducts !==null && choiceProducts !== undefined ? choiceProducts.map(product => {
                 return (
                     <SwiperSlide key={`${product.id}sw`} className='c_product_box2'>
                         <CproductCompo product={product} />
@@ -78,7 +80,7 @@ function ReservationDetailPage() {
                         }
                     </SwiperSlide>
                 );
-            })}
+            }) : null}
             <SwiperSlide><Link to={`/product/${params.reservationId}/plus?k=1`}>제품추가</Link></SwiperSlide>
         </Swiper>
       <hr></hr>
@@ -89,6 +91,7 @@ function ReservationDetailPage() {
       <p>가장 빠른 예약 시간 30분전 부터 취소불가</p>
       {state.ReserReducers.reservationInfo.refund === true ? <button >예약 전체 취소</button> : <p>예약 취소 불가</p>}
       <hr></hr>
+      <Link to={`/pro/2?kp=1&k=1`}>제품추가</Link>
     </div>
   );
 }

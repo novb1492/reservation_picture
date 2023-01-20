@@ -38,6 +38,12 @@ function ChoiceProductCompo() {
     useEffect(() => {
         window.addEventListener("resize", windowResize);
     }, []);
+    /**
+     * 제일 처음 입장시 리덕스 리셋
+     */
+    useEffect(() => {
+        dispatch(ReserAction.resetChoiceInfo([]));
+    }, []);
     return (
         <Swiper slidesPerView={slideCount}>
             {state.ReserReducers.choiceProducts.map(product => {

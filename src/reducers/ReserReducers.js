@@ -41,9 +41,18 @@ const ReserSlice = createSlice({
             let payload = action.payload;
             state.products = payload.products;
         },
+        resetChoiceInfo(state,action) {
+            state.choiceProducts=[];
+            state.choiceSeat=[];
+            state.choiceTimes=[];
+            state.totalPrice=0;
+        },
         setChoiceProducts(state, action) {
             let payload = action.payload;
             let product = payload.product;
+            if(product===null||product ===undefined){
+                return;
+            }
             let ocp = state.choiceProducts;
             let flag = false;
             for (let i in ocp) {
@@ -122,10 +131,6 @@ const ReserSlice = createSlice({
             }
             ct.splice(index,1)
             state.choiceTimes=ct;
-        },
-        setChoiceProducts2(state,action){
-            let payload = action.payload;
-            state.choiceProducts=payload.products;
         },
         setChoiceTimes2(state,action){
             let payload = action.payload;
