@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getPriceByTime } from "../api/reservation/ReservationApi";
+import { consoleLog } from "../assets/js/jslib";
 
 
 let init = {
@@ -11,10 +13,10 @@ let init = {
     seatInfo: [],
     choiceProducts: [],
     totalPrice: 0,
-    times:[],
-    choiceTimes:[],
-    choiceSeat:[],
-    reservationInfo:{totalPrice:0,minPrice:0},
+    times: [],
+    choiceTimes: [],
+    choiceSeat: [],
+    reservationInfo: { totalPrice: 0, minPrice: 0 },
 }
 
 const ReserSlice = createSlice({
@@ -41,16 +43,16 @@ const ReserSlice = createSlice({
             let payload = action.payload;
             state.products = payload.products;
         },
-        resetChoiceInfo(state,action) {
-            state.choiceProducts=[];
-            state.choiceSeat=[];
-            state.choiceTimes=[];
-            state.totalPrice=0;
+        resetChoiceInfo(state, action) {
+            state.choiceProducts = [];
+            state.choiceSeat = [];
+            state.choiceTimes = [];
+            state.totalPrice = 0;
         },
         setChoiceProducts(state, action) {
             let payload = action.payload;
             let product = payload.product;
-            if(product===null||product ===undefined){
+            if (product === null || product === undefined) {
                 return;
             }
             let ocp = state.choiceProducts;
@@ -116,36 +118,48 @@ const ReserSlice = createSlice({
                 }
             }
         },
-        setTimes(state, action){
+        setTimes(state, action) {
             let payload = action.payload;
             state.times = payload.times;
         },
-        setChoiceTime(state, action){
+        setChoiceTime(state, action) {
             let payload = action.payload;
-            let selectTime=payload.time;
-            let ct=state.choiceTimes;
-            let index=ct.indexOf(selectTime);
-            if(index===-1){
-                state.choiceTimes=[...ct,selectTime];
+            let selectTime = payload.time;
+            let ct = state.choiceTimes;
+            let index = ct.indexOf(selectTime);
+            if (index === -1) {
+                state.choiceTimes = [...ct, selectTime];
                 return;
             }
-            ct.splice(index,1)
-            state.choiceTimes=ct;
+            ct.splice(index, 1)
+            state.choiceTimes = ct;
         },
-        setChoiceTimes2(state,action){
+        setChoiceTimes2(state, action) {
             let payload = action.payload;
-            state.choiceTimes=payload.times;
+            state.choiceTimes = payload.times;
         },
-        setChoiceSeat(state,action){
-            let payload=action.payload;
-            state.choiceSeat=payload.seat;
+        setChoiceSeat(state, action) {
+            let payload = action.payload;
+            state.choiceSeat = payload.seat;
         },
-        setReservationInfo(state,action){
-            let payload=action.payload;
-            state.reservationInfo={totalPrice:payload.totalPrice,minPrice:payload.minPrice,refund:payload.refund,totalTime:payload.totalTime};
+        setReservationInfo(state, action) {
+            console.log('fdf');
+            let payload = action.payload;
+            state.reservationInfo = { totalPrice: payload.totalPrice, minPrice: payload.minPrice, refund: payload.refund, totalTime: payload.totalTime };
+        },
+        clearChoiceTime(state, action) {
+            state.choiceTimes = [];
         }
     }
 })
-
+export const changeMinPrice = (size) => async (dispatch) => {
+    try {
+        let response = await getPriceByTime(size);
+        dispatch(ReserSlice.actions.setReservationInfo(response.data));
+    } catch (error) {
+        consoleLog(error);
+        alert('최소 주문 금액 계산에 실패했습니다');
+    }
+};
 export default ReserSlice.reducer;
 export const ReserAction = ReserSlice.actions;

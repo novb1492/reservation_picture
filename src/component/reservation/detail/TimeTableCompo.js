@@ -1,4 +1,7 @@
+import { Link, useParams } from "react-router-dom";
+
 function TimeTableCompo(props) {
+  const params = useParams();
     return (
         <div className="time_table_container">
         {
@@ -14,7 +17,7 @@ function TimeTableCompo(props) {
           })
         }
         <div className={`time_table_box `}>
-          <p>시간추가</p>
+          <Link to={`/time/${params.reservationId}/plus`}>시간 추가</Link>
         </div>
       </div>
     );

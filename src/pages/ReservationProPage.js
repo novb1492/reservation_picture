@@ -8,7 +8,7 @@ import { ReserAction } from "../reducers/ReserReducers"
 import PaymentCompo from "../component/payment/PaymentCompo";
 import ProductCompo from "../component/reservation/ProductCompo";
 import TimeTableCompo from "../component/reservation/TimeTableCompo";
-import { consoleLog } from "../assets/js/jslib";
+import { consoleLog, priceComma } from "../assets/js/jslib";
 import ChoiceProductCompo from "../component/reservation/ChoiceProductCompo";
 /**
  * 예약 시도 페이지 
@@ -65,7 +65,7 @@ function ReservationProPage() {
       <ProductCompo />
       <hr></hr>
       <h2>선택한 상품</h2>
-      <ChoiceProductCompo/>
+      <ChoiceProductCompo />
       <div>
         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
       </div>
