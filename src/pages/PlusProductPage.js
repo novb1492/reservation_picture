@@ -55,7 +55,9 @@ function PlusProductPage() {
             <h2>선택한 상품</h2>
             <ChoiceProductCompo/>
             <div>
-                <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
+                {
+                    state.ReserReducers.totalPrice !==null && state.ReserReducers.totalPrice !== undefined ? <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p> :<p>0원</p>
+                }
             </div>
             <hr></hr>
             <h2>기존 예약 정보</h2>
