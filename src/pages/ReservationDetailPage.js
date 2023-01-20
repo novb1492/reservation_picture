@@ -91,7 +91,6 @@ function ReservationDetailPage() {
       <p>가장 빠른 예약 시간 30분전 부터 취소불가</p>
       {state.ReserReducers.reservationInfo.refund === true ? <button >예약 전체 취소</button> : <p>예약 취소 불가</p>}
       <hr></hr>
-      <Link to={`/pro/2?kp=1&k=1`}>제품추가</Link>
     </div>
   );
 }
