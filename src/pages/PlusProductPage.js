@@ -1,12 +1,13 @@
 import "../assets/css/common.css";
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useSearchParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { consoleLog } from "../assets/js/jslib";
 import { getReservationAndProduct, getReservationDetail } from "../api/reservation/ReservationApi";
 import { ReserAction } from "../reducers/ReserReducers"
 import ProductCompo from "../component/reservation/ProductCompo";
 import CproductCompo from "../component/reservation/CproductCompo";
+import ReserInfoCompo from "../component/reservation/detail/ReserInfoCompo";
 
 /**
  * 예약페이지 
@@ -41,7 +42,12 @@ function PlusProductPage() {
       <h2>선택한 상품</h2>
       <CproductCompo />
       <hr></hr>
+      <h2>기존 예약 정보</h2>
+      <hr></hr>
+      <ReserInfoCompo />
+      <hr></hr>
       <button>추가 제품 결제하기</button>
+      <Link to={`/${params.reservationId}/reservationDetailPage`}>예약 상세 내역</Link>
     </div>
   );
 }

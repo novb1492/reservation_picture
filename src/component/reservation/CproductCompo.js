@@ -36,7 +36,7 @@ function CproductCompo() {
 
             </div>
             <div>
-                <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
+                <p>결제 예정 금액: {state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
             </div>
         </div>
     );

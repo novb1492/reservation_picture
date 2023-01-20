@@ -14,6 +14,7 @@ import ReserInfoCompo from "../component/reservation/detail/ReserInfoCompo";
  * @returns page
  */
 function ReservationDetailPage() {
+  const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const params = useParams();
   let request = async (reId) => {
@@ -50,6 +51,9 @@ function ReservationDetailPage() {
       <h2>예약 정보</h2>
       <hr></hr>
       <ReserInfoCompo />
+      <p>상품 주문 접수완료시 취소 불가</p>
+      <p>가장 빠른 예약 시간 30분전 부터 취소불가</p>
+      {state.ReserReducers.reservationInfo.refund === true ? <button >예약 전체 취소</button> : <p>예약 취소 불가</p>}
       <hr></hr>
     </div>
   );
