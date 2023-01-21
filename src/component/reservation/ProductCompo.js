@@ -43,7 +43,6 @@ function ProductCompo() {
    */
     function changeKind(kindId) {
         searchParams.set('k', kindId);
-        searchParams.set('kp', 1);
         setSearchParams(searchParams);
     }
     return (
