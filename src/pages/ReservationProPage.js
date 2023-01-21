@@ -1,15 +1,15 @@
 import "../assets/css/common.css";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { getProductsAndSeatInfo, saveReservation } from '../api/reservation/ReservationApi';
 import { ReserAction } from "../reducers/ReserReducers"
 import PaymentCompo from "../component/payment/PaymentCompo";
 import ProductCompo from "../component/reservation/ProductCompo";
-import CproductCompo from "../component/reservation/CproductCompo";
 import TimeTableCompo from "../component/reservation/TimeTableCompo";
-import { consoleLog } from "../assets/js/jslib";
+import { consoleLog, priceComma } from "../assets/js/jslib";
+import ChoiceProductCompo from "../component/reservation/ChoiceProductCompo";
 /**
  * 예약 시도 페이지 
  * @returns page
@@ -43,15 +43,6 @@ function ReservationProPage() {
     request(searchParams.get('k'))
   }, [searchParams.get('k')]);
   /**
-   * 품목 카테고리 변경
-   * @param {int} kindId 
-   */
-  function changeKind(kindId) {
-    searchParams.set('k', kindId);
-    searchParams.set('kp', 1);
-    setSearchParams(searchParams);
-  }
-  /**
    * 예약 하기 버튼 클릭시
    */
   let order = async () => {
@@ -71,17 +62,10 @@ function ReservationProPage() {
       <h2>시간선택</h2>
       <hr></hr>
       <TimeTableCompo />
-      <hr></hr>
-      <h2>상품</h2>
-      <hr></hr>
-      <div>
-        <button onClick={() => { changeKind(1) }}>kind1</button>
-        <button onClick={() => { changeKind(2) }}>kind2</button>
-      </div>
       <ProductCompo />
       <hr></hr>
       <h2>선택한 상품</h2>
-      <CproductCompo />
+      <ChoiceProductCompo />
       <div>
         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
       </div>

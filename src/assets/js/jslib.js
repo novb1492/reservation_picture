@@ -16,5 +16,10 @@ export function isMobile() {
     return isMobile;
 }
 export function priceComma(price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    try {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } catch (error) {
+        consoleLog(error);
+        return 0 ;
+    }
 }

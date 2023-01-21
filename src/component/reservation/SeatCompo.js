@@ -7,7 +7,7 @@ function SeatCompo() {
   const navigate = useNavigate();
   const params = useParams();
   function goProPage(seatId) {
-    navigate(`/pro/${seatId}?kp=1&k=1`);
+    navigate(`/pro/${seatId}?k=1`);
   }
   return (
     <div>
