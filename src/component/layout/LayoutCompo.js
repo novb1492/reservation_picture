@@ -1,4 +1,5 @@
 import {Outlet} from "react-router-dom";
+import FooterCompo from "./FooterCompo";
 import HeaderCompo from "./HeaderCompo";
 
 function LayoutCompo() {
@@ -7,6 +8,7 @@ function LayoutCompo() {
         <div>
             <HeaderCompo/>
             <Outlet/>
+            <FooterCompo/>
         </div>
     )
 }

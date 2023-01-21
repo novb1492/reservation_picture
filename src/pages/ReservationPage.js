@@ -48,11 +48,11 @@ function ReservationPage() {
   }, [params.floor]);
   return (
     <div>
+      <FloorCompo />
       <div className="drawing_container" >
         <img style={{ opacity: 0.9 }} className="seat" src={state.ReserReducers.drawing} alt="random photo" />
         <SeatCompo />
       </div>
-      <FloorCompo />
     </div>
   );
 }

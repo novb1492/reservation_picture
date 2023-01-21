@@ -24,13 +24,15 @@ div {
 .drawing_container {
     position: relative;
     left: 27.5%;
-
+    height: 40rem;
+    margin-top: 5rem;
 }
-
 .seat {
     position: absolute;
 }
-
+.floor_btn_container{
+    margin-top: 2rem;
+}
 .product_box {
     display: flex;
     flex-direction: column;
@@ -46,7 +48,9 @@ div {
     display: flex;
     flex-wrap: wrap;
 }
-
+.f_text{
+    text-align: center;
+}
 .c_product_box {
     display: flex;
     flex-direction: column;

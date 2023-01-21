@@ -14,6 +14,7 @@ function HeaderCompo() {
                     <li><Link to={"/role"}>이용 약관</Link></li>
                 </ul>
             </nav>
+            <hr></hr>
         </header>
 
     )
