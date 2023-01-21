@@ -131,7 +131,7 @@ const ReserSlice = createSlice({
                 state.choiceTimes = [...ct, selectTime];
                 return;
             }
-            ct.splice(index, 1)
+            ct.splice(index, 1);
             state.choiceTimes = ct;
         },
         setChoiceTimes2(state, action) {
