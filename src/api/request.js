@@ -24,7 +24,7 @@ export  function setInterceptors(instance)  {
   }
   export const instance = axios.create({
     withCredentials: true,
-    baseURL: 'http://localhost:8080',
+    baseURL: process.env.REACT_APP_API_URL,
     headers: {
       'Content-Type': "application/json",
     }
