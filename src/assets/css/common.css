@@ -136,6 +136,14 @@ div {
     .count_in {
         width: 2rem;
     }
+    .nav{
+        display: flex;
+        flex-direction: column;
+    }
+    .nav_ul{
+        display: flex;
+        flex-direction: column;
+    }
 }
 @media (max-width: 1400px) {
     .product_img {
