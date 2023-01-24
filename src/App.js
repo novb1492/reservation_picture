@@ -1,5 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import LayoutCompo from "./component/layout/LayoutCompo";
+import LoginPage from "./pages/LoginPage";
 import Main from "./pages/Main";
 import MyPage from "./pages/MyPage";
 import PlusProductPage from "./pages/PlusProductPage";
@@ -22,6 +23,7 @@ function App() {
           <Route path="time/:reservationId/plus" element={<PlusTimePage />}></Route>
           <Route path="mypage" element={<MyPage />}></Route>
         </Route>
+        <Route path="/login" element={<LoginPage/>}></Route>
       </Routes>
     </Router>
   );
