@@ -3,7 +3,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 function Main() {
   return (
     <div>
-        <Link to={"/mypage?reId=15"}>mypage</Link>
+        <Link to={"/mypage?page=1"}>mypage</Link>
     </div>
   );
 }

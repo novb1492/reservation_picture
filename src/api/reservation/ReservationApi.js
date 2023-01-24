@@ -28,3 +28,6 @@ export function plusTime(reservationId, data) {
 export function getPriceByTime(timeArrSize) {
     return instance.get(`/api/auth/time/${timeArrSize}`);
 }
+export function getReservationsByPeriod(page,period) {
+    return instance.get(`/api/auth/${period.start}/${period.end}/reservation/${page}/list`);
+}
