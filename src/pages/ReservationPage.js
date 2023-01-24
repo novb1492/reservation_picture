@@ -21,6 +21,9 @@ function ReservationPage() {
    */
   let request = async (floor) => {
     try {
+      if(floor===undefined||floor===null){
+        floor=1;
+      }
       let response = await getFloorInfo(floor);
       let data = response.data;
       dispatch(ReserAction.setDrawing({ drawing: data.drawing }));
