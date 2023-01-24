@@ -133,6 +133,9 @@ div {
 .reservation_box{
     border: 0.1rem solid;
 }
+.period_c_box{
+    display: flex;
+}
 @media (max-width: 555px) {
     .product_img {
         width: 4rem;

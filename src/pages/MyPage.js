@@ -47,10 +47,10 @@ function MyPage() {
      * @param {string} date 
      * @param {string} kind 
      */
-    let changeDate=(date,kind)=>{
-        if(kind==='start'){
+    let changeDate = (date, kind) => {
+        if (kind === 'start') {
             searchParams.set("start", date);
-        }else{
+        } else {
             searchParams.set("end", date);
         }
         setSearchParams(searchParams);
@@ -90,13 +90,15 @@ function MyPage() {
                 </div>
                 <div>
                     <p>날짜 선택</p>
-                    <div>
-                        <p>시작일</p>
-                        <input type="date" onChange={(event)=>{changeDate(event.target.value,'start')}}></input>
-                    </div>
-                    <div>
-                        <p>종료일</p>
-                        <input type="date"  onChange={(event)=>{changeDate(event.target.value,'end')}}></input>
+                    <div className="period_c_box">
+                        <div>
+                            <p>시작일</p>
+                            <input type="date" onChange={(event) => { changeDate(event.target.value, 'start') }}></input>
+                        </div>
+                        <div>
+                            <p>종료일</p>
+                            <input type="date" onChange={(event) => { changeDate(event.target.value, 'end') }}></input>
+                        </div>
                     </div>
                 </div>
 
