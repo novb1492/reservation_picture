@@ -8,6 +8,7 @@ import PlusTimePage from "./pages/PlusTimePage";
 import ReservationDetailPage from "./pages/ReservationDetailPage";
 import ReservationPage from "./pages/ReservationPage";
 import ReservationProPage from "./pages/ReservationProPage";
+import RolePage from "./pages/RolePage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="product/:reservationId/plus" element={<PlusProductPage />}></Route>
           <Route path="time/:reservationId/plus" element={<PlusTimePage />}></Route>
           <Route path="mypage" element={<MyPage />}></Route>
+          <Route path="role" element={<RolePage />}></Route>
         </Route>
         <Route path="/login" element={<LoginPage/>}></Route>
       </Routes>
