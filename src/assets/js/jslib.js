@@ -20,6 +20,19 @@ export function priceComma(price) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     } catch (error) {
         consoleLog(error);
-        return 0 ;
+        return 0;
     }
+}
+export function checkContinueTime(arr) {
+    let start = arr[0];
+    for (let i = 1; i < arr.length; i++) {
+        if (start + i !== arr[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+export function sortAsc(arr) {
+    arr.sort((a, b) => a - b);
+    return arr;
 }

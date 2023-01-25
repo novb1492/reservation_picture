@@ -1,21 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Caramel&family=Great+Vibes&family=Mr+Dafoe&family=Passions+Conflict&display=swap');
+
 p {
     margin: 0;
 }
-
+ul{
+    margin: 0;
+    padding: 0;
+    list-style:none;
+}
 div {
     margin: 0;
 }
-
+.nav{
+    display: flex;
+    justify-content: space-between;
+}
+.nav_ul{
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+    margin-right: 5%;
+}
 .drawing_container {
     position: relative;
     left: 27.5%;
-
+    height: 40rem;
+    margin-top: 5rem;
 }
-
 .seat {
     position: absolute;
 }
-
+.floor_btn_container{
+    margin-top: 2rem;
+}
 .product_box {
     display: flex;
     flex-direction: column;
@@ -31,7 +48,9 @@ div {
     display: flex;
     flex-wrap: wrap;
 }
-
+.f_text{
+    text-align: center;
+}
 .c_product_box {
     display: flex;
     flex-direction: column;
@@ -97,7 +116,26 @@ div {
 .count_in {
     width: 6rem;
 }
-
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    /* background-color: rgba( 255, 255, 255, 0 ); */
+}
+.p_n_box{
+    display: flex;
+}
+.r_t_box{
+    display: flex;
+}
+.reservation_box{
+    border: 0.1rem solid;
+}
+.period_c_box{
+    display: flex;
+}
 @media (max-width: 555px) {
     .product_img {
         width: 4rem;
@@ -109,6 +147,14 @@ div {
 
     .count_in {
         width: 2rem;
+    }
+    .nav{
+        display: flex;
+        flex-direction: column;
+    }
+    .nav_ul{
+        display: flex;
+        flex-direction: column;
     }
 }
 @media (max-width: 1400px) {

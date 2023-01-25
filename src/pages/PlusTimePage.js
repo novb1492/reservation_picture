@@ -1,7 +1,7 @@
 import "../assets/css/common.css";
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { consoleLog, priceComma } from "../assets/js/jslib";
 import { getReservationAndProduct, getReservationDetail, getTimesByReservationId, plusProduct, plusTime } from "../api/reservation/ReservationApi";
 import { ReserAction } from "../reducers/ReserReducers"
@@ -17,6 +17,7 @@ function PlusTimePage() {
     const params = useParams();
     const [totalPrice, setTotalPrice] = useState(0);
     const [time, setTime] = useState(0);
+    const navigate = useNavigate();
     let request = async () => {
         try {
             let response = await getTimesByReservationId(params.reservationId);
@@ -43,6 +44,7 @@ function PlusTimePage() {
         try {
             let response = await plusTime(params.reservationId, JSON.stringify({ "choiceTimes": state.ReserReducers.choiceTimes }));
             consoleLog(response);
+            navigate(`/${params.reservationId}/ReservationDetailPage`);
             window.location.href = '';
         } catch (error) {
             consoleLog(error);

@@ -8,7 +8,7 @@ import { ReserAction } from "../reducers/ReserReducers"
 import PaymentCompo from "../component/payment/PaymentCompo";
 import ProductCompo from "../component/reservation/ProductCompo";
 import TimeTableCompo from "../component/reservation/TimeTableCompo";
-import { consoleLog, priceComma } from "../assets/js/jslib";
+import { checkContinueTime, consoleLog, priceComma, sortAsc } from "../assets/js/jslib";
 import ChoiceProductCompo from "../component/reservation/ChoiceProductCompo";
 /**
  * 예약 시도 페이지 
@@ -47,7 +47,13 @@ function ReservationProPage() {
    */
   let order = async () => {
     try {
-      let response = await saveReservation(JSON.stringify({ "choiceProducts": state.ReserReducers.choiceProducts, "choiceTimes": state.ReserReducers.choiceTimes }));
+      let arr = state.ReserReducers.choiceTimes;
+      arr=sortAsc([...arr]);
+      if (!checkContinueTime(arr)) {
+        alert(`예약시간은 연속되게 선택가능합니다\n현재선택시간${arr}`);
+        return;
+      }
+      let response = await saveReservation(JSON.stringify({ "choiceProducts": state.ReserReducers.choiceProducts, "choiceTimes": arr }));
       consoleLog(response);
       let data = response.data;
       paymentRef.current.on_pay(data);

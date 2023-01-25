@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getPriceByTime } from "../api/reservation/ReservationApi";
-import { consoleLog } from "../assets/js/jslib";
+import { checkContinueTime, consoleLog, sortAsc } from "../assets/js/jslib";
 
 
 let init = {
@@ -128,10 +128,14 @@ const ReserSlice = createSlice({
             let ct = state.choiceTimes;
             let index = ct.indexOf(selectTime);
             if (index === -1) {
+                if(!checkContinueTimeAdd(ct,selectTime)){
+                    alert('예약시간을 연속되게 선택해주세요');
+                    return;
+                }
                 state.choiceTimes = [...ct, selectTime];
                 return;
             }
-            ct.splice(index, 1)
+            ct.splice(index, 1);
             state.choiceTimes = ct;
         },
         setChoiceTimes2(state, action) {
@@ -151,6 +155,15 @@ const ReserSlice = createSlice({
         }
     }
 })
+function checkContinueTimeAdd(timeArr,choiceTime) {
+    if(timeArr.length!=0){
+        timeArr=[...timeArr,choiceTime];
+        timeArr=sortAsc(timeArr);
+        return checkContinueTime(timeArr);
+    }
+    return true;
+    
+}
 export const changeMinPrice = (size) => async (dispatch) => {
     try {
         let response = await getPriceByTime(size);
