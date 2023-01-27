@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import LayoutCompo from "./component/layout/LayoutCompo";
 import LoginPage from "./pages/LoginPage";
+import LoginProPage from "./pages/LoginProPage";
 import Main from "./pages/Main";
 import MyPage from "./pages/MyPage";
 import PlusProductPage from "./pages/PlusProductPage";
@@ -25,7 +26,8 @@ function App() {
           <Route path="mypage" element={<MyPage />}></Route>
           <Route path="role" element={<RolePage />}></Route>
         </Route>
-        <Route path="/login" element={<LoginPage/>}></Route>
+        <Route path="/login" element={<LoginProPage/>}></Route>
+        <Route path="/loginPage" element={<LoginPage/>}></Route>
       </Routes>
     </Router>
   );

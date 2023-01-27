@@ -1,7 +1,7 @@
 import "../assets/css/common.css";
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { consoleLog } from "../assets/js/jslib";
+import { consoleLog, getNowUrl } from "../assets/js/jslib";
 import { getReservationsByPeriod } from "../api/reservation/ReservationApi";
 function MyPage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -10,6 +10,9 @@ function MyPage() {
     const [last, setLast] = useState(true);
     const [first, setFirst] = useState(true);
     const [nowPage, setNowPage] = useState(1);
+    const navigate = useNavigate();
+    const location = useLocation();
+
     let request = async (page, start, end) => {
         try {
             let period = new Object;
@@ -34,6 +37,13 @@ function MyPage() {
     useEffect(() => {
         request(searchParams.get('page'), searchParams.get('start'), searchParams.get('end'));
     }, [searchParams.get('page'), searchParams.get('start'), searchParams.get('end')]);
+    useEffect(()=>{
+        if(!sessionStorage.getItem('login')){
+            let nextUrl=getNowUrl(location);
+            sessionStorage.setItem('nextUrl',nextUrl);
+            navigate('/loginPage');
+        }
+    },[]);
     /**
      * 페이징 버튼 함수
      * @param {int} num 

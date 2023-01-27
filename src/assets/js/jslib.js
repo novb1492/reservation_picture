@@ -36,3 +36,13 @@ export function sortAsc(arr) {
     arr.sort((a, b) => a - b);
     return arr;
 }
+export function getNowUrl(location) {
+    return `${location.pathname}${location.search}`;
+}
+export function initKakaoLogin() {
+    try {
+        window.Kakao.init('ec6b5c5e681c307d9d1576ee7fbf2edf');
+    } catch (error) {
+        consoleLog(error);
+    }
+}
