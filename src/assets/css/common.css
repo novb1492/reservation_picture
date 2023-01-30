@@ -11,6 +11,9 @@ ul{
 div {
     margin: 0;
 }
+a {
+    text-decoration: none;
+  }
 .nav{
     display: flex;
     justify-content: space-between;
@@ -158,6 +161,8 @@ div {
     .nav_ul{
         display: flex;
         flex-direction: column;
+        width: 100%;
+        align-items: center;
     }
     .nav_bars{
         display: block;
@@ -169,6 +174,9 @@ div {
     }
     .displayNone{
         display: none;
+    }
+    .nav_ul_li{
+        margin-bottom: 0.5rem;
     }
 }
 @media (max-width: 1400px) {

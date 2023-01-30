@@ -33,10 +33,10 @@ function HeaderCompo() {
                     <i className="fa-solid fa-bars nav_bars fa-lg" onClick={()=>{mobileNavShowAndHide()}}></i>
                 </div>
                 <ul className="nav_ul" ref={navUlRef}>
-                    <li><Link to={"/seat/1/floor"}>예약</Link></li>
-                    <li><Link to={"/mypage?page=1"}>마이페이지</Link></li>
-                    <li><LoginCompo /></li>
-                    <li><Link to={"/role"}>이용 약관</Link></li>
+                    <li  className="nav_ul_li" ><Link to={"/seat/1/floor"}>예약</Link></li>
+                    <li className="nav_ul_li" ><Link to={"/mypage?page=1"}>마이페이지</Link></li>
+                    <li className="nav_ul_li" ><LoginCompo /></li>
+                    <li className="nav_ul_li" ><Link to={"/role"}>이용 약관</Link></li>
                 </ul>
             </nav>
             <hr></hr>
