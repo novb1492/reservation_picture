@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { requestlogOut } from "../../api/user/userApi";
 import { consoleLog, initKakaoLogin } from "../../assets/js/jslib";
 
 function LoginCompo() {
@@ -11,8 +12,13 @@ function LoginCompo() {
             redirectUri: 'http://localhost:3000/login',
         });
     }
-    function logOut() {
+    async function logOut() {
         sessionStorage.setItem('login',false);
+        try {
+           let response=await requestlogOut();   
+        } catch (error) {
+            consoleLog(error);
+        }
         window.location.href='/';
     }
     return (

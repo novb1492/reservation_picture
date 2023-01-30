@@ -20,7 +20,7 @@ function LoginProPage() {
             navigate("/");
         } catch (error) {
             consoleLog(error);
-            alert('예약 상세내역을 불러오는데 실패 했습니다');
+            alert('로그인에 실패했습니다');
         }
     }
     useEffect(()=>{
