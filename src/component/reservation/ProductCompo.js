@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 function ProductCompo() {
-    const [slideCount, setSlideCount] = useState(6);
+    const [slideCount, setSlideCount] = useState(3);
     SwiperCore.use([Navigation, Pagination]);
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
@@ -23,6 +23,9 @@ function ProductCompo() {
     };
     useEffect(() => {
         window.addEventListener("resize", windowResize);
+    }, []);
+    useEffect(() => {
+        windowResize();
     }, []);
     /**
    * 상품 클릭시

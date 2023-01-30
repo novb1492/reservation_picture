@@ -18,7 +18,7 @@ import CproductCompo from "../component/reservation/CproductCompo";
  * @returns page
  */
 function ReservationDetailPage() {
-  const [slideCount, setSlideCount] = useState(6);
+  const [slideCount, setSlideCount] = useState(3);
   SwiperCore.use([Navigation, Pagination]);
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -53,6 +53,9 @@ function ReservationDetailPage() {
   };
   useEffect(() => {
     window.addEventListener("resize", windowResize);
+  }, []);
+  useEffect(() => {
+    windowResize();
   }, []);
   function cancel(paymentId) {
     consoleLog(params.reservationId);

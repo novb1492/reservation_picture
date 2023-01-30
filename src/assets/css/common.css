@@ -17,6 +17,7 @@ a {
 .nav{
     display: flex;
     justify-content: space-between;
+    position: sticky;
 }
 .nav_ul{
     display: flex;
@@ -29,6 +30,9 @@ a {
     left: 27.5%;
     height: 40rem;
     margin-top: 5rem;
+}
+.drawing_img{
+    position: absolute;
 }
 .seat {
     position: absolute;
@@ -142,7 +146,19 @@ a {
 .nav_bars{
     display: none;
 }
-@media (max-width: 555px) {
+@media (max-width: 1400px) {
+    .product_img {
+        width: 6rem;
+    }
+}
+@media (max-width: 1200px) {
+    .drawing_container {
+        transform: rotate(270deg);
+        left: 0;
+        margin-top: 1rem;
+    }
+}
+@media (max-width: 841px) {
     .product_img {
         width: 4rem;
     }
@@ -178,9 +194,7 @@ a {
     .nav_ul_li{
         margin-bottom: 0.5rem;
     }
-}
-@media (max-width: 1400px) {
-    .product_img {
-        width: 6rem;
+    .drawing_container{
+        margin-top: 20rem;
     }
 }
