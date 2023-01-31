@@ -17,7 +17,7 @@ function SeatCompo() {
           : null
       }
       {state.ReserReducers.seatInfoArr.map(info => {
-        return <img style={{ left: info.left + 'rem', top: info.top + 'rem', cursor: 'pointer',opacity: info.soldOut === true ? 0.5 : 1 }} onClick={() => { if(info.soldOut){alert('예약 할 수 없는 좌석입니다'); return;} goProPage(info.id) }} onMouseEnter={(event) => zoomIn(event)} onMouseLeave={(event) => { zoomOut(event) }} key={info.id} className="seat" src={info.url} alt="seat" />
+        return <img style={{ left: info.left + 'rem', top: info.top + 'rem', cursor: 'pointer',opacity: info.soldOut === 0 ? 0.5 : 1 }} onClick={() => { if(info.soldOut===0){alert('예약 할 수 없는 좌석입니다'); return;} goProPage(info.id) }} onMouseEnter={(event) => zoomIn(event)} onMouseLeave={(event) => { zoomOut(event) }} key={info.id} className="seat" src={info.url} alt="seat" />
       })}
     </div>
   );

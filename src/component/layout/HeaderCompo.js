@@ -30,7 +30,9 @@ function HeaderCompo() {
             <nav className="nav">
                 <div className="nav_main">
                     <Link to={"/"}>Eleven-Fifty</Link>
-                    <i className="fa-solid fa-bars nav_bars fa-lg" onClick={()=>{mobileNavShowAndHide()}}></i>
+                    <div className="nav_bars">
+                        <i className="fa-solid fa-bars fa-lg" onClick={()=>{mobileNavShowAndHide()}}></i>
+                    </div>
                 </div>
                 <ul className="nav_ul" ref={navUlRef}>
                     <li  className="nav_ul_li" ><Link to={"/seat/1/floor"}>예약</Link></li>
