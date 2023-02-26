@@ -38,7 +38,8 @@ function MyPage() {
         request(searchParams.get('page'), searchParams.get('start'), searchParams.get('end'));
     }, [searchParams.get('page'), searchParams.get('start'), searchParams.get('end')]);
     useEffect(()=>{
-        if(!sessionStorage.getItem('login')){
+        if(sessionStorage.getItem('login')=='false'||sessionStorage.getItem('login')===false){
+            consoleLog('fdf');
             let nextUrl=getNowUrl(location);
             sessionStorage.setItem('nextUrl',nextUrl);
             navigate('/loginPage');

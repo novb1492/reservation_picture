@@ -91,7 +91,7 @@ function ReservationDetailPage() {
       <hr></hr>
       <ReserInfoCompo />
       <p>상품 주문 접수완료시 취소 불가</p>
-      <p>가장 빠른 예약 시간 30분전 부터 취소불가</p>
+      <p>제일 빠른 예약 시간 2시간 전까지만 취소가 가능합니다</p>
       {state.ReserReducers.reservationInfo.refund === true ? <button >예약 전체 취소</button> : <p>예약 취소 불가</p>}
       <hr></hr>
     </div>
