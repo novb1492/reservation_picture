@@ -17,8 +17,8 @@ function App() {
     <Router>
       <Routes>
         <Route path={"/"} element={<LayoutCompo />} >
-          <Route path="seat/:floor/:marketId/floor" element={<ReservationPage />}></Route>
-          <Route path="pro/:seatId" element={<ReservationProPage />}></Route>
+          <Route path="seat/:floor/:mid/floor" element={<ReservationPage />}></Route>
+          <Route path="pro/:seatId/:mid" element={<ReservationProPage />}></Route>
           <Route path=":reservationId/reservationDetailPage" element={<ReservationDetailPage />}></Route>
           <Route path="" element={<Main />}></Route>
           <Route path="product/:reservationId/plus" element={<PlusProductPage />}></Route>

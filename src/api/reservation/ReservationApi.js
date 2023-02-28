@@ -3,8 +3,8 @@ import { instance, setInterceptors } from "../request";
 export function getFloorInfo(floor,marketId) {
     return instance.get(`/api/auth/${floor}/seat/${marketId}`);
 }
-export function getProductsAndSeatInfo(seatId, kindId) {
-    return instance.get(`/api/auth/product/${kindId}/list/${seatId}/time`);
+export function getProductsAndSeatInfo(seatId, kindId,mid) {
+    return instance.get(`/api/auth/product/${kindId}/list/${seatId}/time/${mid}`);
 }
 export function saveReservation(body) {
     return instance.post('/api/auth/save/reservation', body);

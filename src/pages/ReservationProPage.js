@@ -26,7 +26,7 @@ function ReservationProPage() {
    */
   let request = async (kindId) => {
     try {
-      let response = await getProductsAndSeatInfo(params.seatId, kindId);
+      let response = await getProductsAndSeatInfo(params.seatId, kindId,params.mid);
       let data = response.data;
       consoleLog(response);
       dispatch(ReserAction.setProducts({ products: data.products }));

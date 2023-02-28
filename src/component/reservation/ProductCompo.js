@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import KindBtn from "./KindBtn";
 
 function ProductCompo() {
     const [slideCount, setSlideCount] = useState(3);
@@ -33,20 +34,12 @@ function ProductCompo() {
    * @returns 
    */
     function choice(product) {
-        if (product.soldOut) {
+        if (product.soldOut===0) {
             alert('품절된 상품입니다');
             return;
         }
         let p = { ...product, count: "1" };
         dispatch(ReserAction.setChoiceProducts({ product: p }));
-    }
-    /**
-   * 품목 카테고리 변경
-   * @param {int} kindId 
-   */
-    function changeKind(kindId) {
-        searchParams.set('k', kindId);
-        setSearchParams(searchParams);
     }
     return (
         <div>
@@ -54,20 +47,20 @@ function ProductCompo() {
             <h2>상품</h2>
             <hr></hr>
             <div>
-                <button onClick={() => { changeKind(1) }}>kind1</button>
-                <button onClick={() => { changeKind(2) }}>kind2</button>
+                <KindBtn id={1} txt='커피'/>
+                <KindBtn id={2} txt='케이크'/>
             </div>
             <hr></hr>
             <Swiper
                 slidesPerView={slideCount}>
                 {state.ReserReducers.products.map(product => {
                     return (
-                        <SwiperSlide className="product_box" key={`${product.id}sw`} style={{ opacity: product.soldOut === true ? 0.5 : 1 }} onClick={() => { choice(product) }}>
+                        <SwiperSlide className="product_box" key={`${product.id}sw`} style={{ opacity: product.soldOut === 0 ? 0.5 : 1 }} onClick={() => { choice(product) }}>
                             <img key={`${product.id}img`} className="product_img" src={product.img} />
                             <p key={`${product.id}n`}>{product.name}</p>
                             <p key={`${product.id}p`}>{product.price}원</p>
                             {
-                                product.soldOut === true ? <p>품절</p> : null
+                                product.soldOut === 0 ? <p>품절</p> : null
                             }
                         </SwiperSlide>
                     );

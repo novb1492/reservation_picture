@@ -24,7 +24,7 @@ function ReservationPage() {
       if(floor===undefined||floor===null){
         floor=1;
       }
-      let response = await getFloorInfo(floor,params.marketId);
+      let response = await getFloorInfo(floor,params.mid);
       let data = response.data;
       dispatch(ReserAction.setDrawing({ drawing: data.drawing }));
       dispatch(ReserAction.setSeatInfoArr({ seatInfoArr: data.seats }));
