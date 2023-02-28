@@ -1,7 +1,7 @@
 import { instance, setInterceptors } from "../request";
 
-export function getFloorInfo(floor) {
-    return instance.get(`/api/auth/${floor}/seat`);
+export function getFloorInfo(floor,marketId) {
+    return instance.get(`/api/auth/${floor}/seat/${marketId}`);
 }
 export function getProductsAndSeatInfo(seatId, kindId) {
     return instance.get(`/api/auth/product/${kindId}/list/${seatId}/time`);

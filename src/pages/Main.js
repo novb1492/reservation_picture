@@ -4,7 +4,7 @@ import ReservationPage from "./ReservationPage";
 function Main() {
   return (
     <div>
-        <ReservationPage/>
+        메인페이지
     </div>
   );
 }
