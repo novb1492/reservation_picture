@@ -164,9 +164,10 @@ function checkContinueTimeAdd(timeArr,choiceTime) {
     return true;
     
 }
-export const changeMinPrice = (size) => async (dispatch) => {
+export const changeMinPrice = (size,mid) => async (dispatch) => {
     try {
-        let response = await getPriceByTime(size);
+        let response = await getPriceByTime(size,mid);
+        consoleLog(response);
         dispatch(ReserSlice.actions.setReservationInfo({minPrice:response.data.minPrice}));
     } catch (error) {
         consoleLog(error);
