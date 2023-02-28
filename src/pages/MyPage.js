@@ -1,7 +1,7 @@
 import "../assets/css/common.css";
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { consoleLog, getNowUrl } from "../assets/js/jslib";
+import { checkNullAndUnde, consoleLog, getNowUrl } from "../assets/js/jslib";
 import { getReservationsByPeriod } from "../api/reservation/ReservationApi";
 function MyPage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -38,7 +38,7 @@ function MyPage() {
         request(searchParams.get('page'), searchParams.get('start'), searchParams.get('end'));
     }, [searchParams.get('page'), searchParams.get('start'), searchParams.get('end')]);
     useEffect(()=>{
-        if(sessionStorage.getItem('login')=='false'||sessionStorage.getItem('login')===false){
+        if(checkNullAndUnde(sessionStorage.getItem('login'))){
             consoleLog('fdf');
             let nextUrl=getNowUrl(location);
             sessionStorage.setItem('nextUrl',nextUrl);

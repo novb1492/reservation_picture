@@ -46,3 +46,9 @@ export function initKakaoLogin() {
         consoleLog(error);
     }
 }
+export function checkNullAndUnde(value) {
+    if (value === undefined || value === null || value === 'null' || value === 'undefined') {
+        return true;
+    }
+    return false;
+}

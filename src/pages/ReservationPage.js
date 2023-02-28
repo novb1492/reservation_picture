@@ -51,7 +51,7 @@ function ReservationPage() {
   }, [params.floor]);
   return (
     <div>
-      <FloorCompo />
+      <FloorCompo mid={params.mid} />
       <div className="drawing_container" >
         <img style={{ opacity: 0.9 }} className="drawing_img" src={state.ReserReducers.drawing} alt="random photo" />
         <SeatCompo />
