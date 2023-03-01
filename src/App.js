@@ -20,7 +20,7 @@ function App() {
           <Route path="seat/:floor/:mid/floor" element={<ReservationPage />}></Route>
           <Route path="pro/:seatId/:mid" element={<ReservationProPage />}></Route>
           <Route path=":reservationId/reservationDetailPage" element={<ReservationDetailPage />}></Route>
-          <Route path="" element={<Main />}></Route>
+          <Route path=":mid" element={<Main />}></Route>
           <Route path="product/:reservationId/plus" element={<PlusProductPage />}></Route>
           <Route path="time/:reservationId/plus" element={<PlusTimePage />}></Route>
           <Route path="mypage" element={<MyPage />}></Route>

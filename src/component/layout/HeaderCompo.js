@@ -1,17 +1,17 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { consoleLog } from "../../assets/js/jslib";
 import LoginCompo from "./LoginCompo";
 
 function HeaderCompo() {
     const navUlRef = useRef();
+    const params = useParams();
     /**
      * 모바일시 네비바 햄버거 버튼으로
      * nav_ul 영역 제어
      */
     function mobileNavShowAndHide() {
         let classList=navUlRef.current.classList;
-        consoleLog(classList);
         let flag=false;
         for(var i in classList){
             if(classList[i]==='displayNone'){
@@ -35,7 +35,7 @@ function HeaderCompo() {
                     </div>
                 </div>
                 <ul className="nav_ul" ref={navUlRef}>
-                    <li  className="nav_ul_li" ><Link to={"/seat/1/floor"}>예약</Link></li>
+                    <li  className="nav_ul_li" ><Link to={`/seat/1/${params.mid}/floor`}>예약</Link></li>
                     <li className="nav_ul_li" ><Link to={"/mypage?page=1"}>마이페이지</Link></li>
                     <li className="nav_ul_li" ><LoginCompo /></li>
                     <li className="nav_ul_li" ><Link to={"/role"}>이용 약관</Link></li>
