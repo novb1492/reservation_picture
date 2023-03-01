@@ -15,6 +15,7 @@ function ProductCompo() {
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
+    let soldOutState=2;
     let windowResize = () => {
         if (window.innerWidth <= 555) {
             setSlideCount(3);
@@ -34,7 +35,7 @@ function ProductCompo() {
    * @returns 
    */
     function choice(product) {
-        if (product.soldOut===0) {
+        if (product.soldOut===soldOutState) {
             alert('품절된 상품입니다');
             return;
         }
@@ -55,12 +56,12 @@ function ProductCompo() {
                 slidesPerView={slideCount}>
                 {state.ReserReducers.products.map(product => {
                     return (
-                        <SwiperSlide className="product_box" key={`${product.id}sw`} style={{ opacity: product.soldOut === 0 ? 0.5 : 1 }} onClick={() => { choice(product) }}>
+                        <SwiperSlide className="product_box" key={`${product.id}sw`} style={{ opacity: product.soldOut === soldOutState ? 0.5 : 1 }} onClick={() => { choice(product) }}>
                             <img key={`${product.id}img`} className="product_img" src={product.img} />
                             <p key={`${product.id}n`}>{product.name}</p>
                             <p key={`${product.id}p`}>{product.price}원</p>
                             {
-                                product.soldOut === 0 ? <p>품절</p> : null
+                                product.soldOut === soldOutState ? <p>품절</p> : null
                             }
                         </SwiperSlide>
                     );
