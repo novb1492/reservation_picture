@@ -7,7 +7,7 @@ export function getProductsAndSeatInfo(seatId, kindId,mid) {
     return instance.get(`/api/auth/product/${kindId}/list/${seatId}/time/${mid}`);
 }
 export function saveReservation(body) {
-    return instance.post('/api/auth/save/reservation', body);
+    return instance.post('/api/reservation/save', body);
 }
 export function getReservationDetail(reservationId) {
     return instance.get(`/api/auth/${reservationId}/reservation`);
