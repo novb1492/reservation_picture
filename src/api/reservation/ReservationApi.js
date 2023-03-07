@@ -7,7 +7,7 @@ export function getProductsAndSeatInfo(seatId, kindId,mid) {
     return instance.get(`/api/auth/product/${kindId}/list/${seatId}/time/${mid}`);
 }
 export function saveReservation(body) {
-    return instance.post('/api/reservation/save', body);
+    return instance.post('/api/time/save', body);
 }
 export function getReservationDetail(reservationId) {
     return instance.get(`/api/auth/${reservationId}/reservation`);
@@ -29,5 +29,5 @@ export function getPriceByTime(timeArrSize,mid) {
     return instance.get(`/api/auth/time/${timeArrSize}/${mid}`);
 }
 export function getReservationsByPeriod(page,period) {
-    return instance.get(`/api/auth/${period.start}/${period.end}/reservation/${page}/list`);
+    return instance.get(`/api/${period.start}/${period.end}/time/${page}/list`);
 }
