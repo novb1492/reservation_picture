@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { priceComma } from "../../assets/js/jslib";
 import { changeMinPrice, ReserAction } from "../../reducers/ReserReducers"
 
 function TimeTableCompo() {
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
+    const params = useParams();
+
     /**
    * 시간 선택시
    * @param {int} time 
@@ -26,7 +29,7 @@ function TimeTableCompo() {
         dispatch(ReserAction.clearChoiceTime());
     }, []);
     useEffect(() => {
-        dispatch(changeMinPrice(state.ReserReducers.choiceTimes.length));
+        dispatch(changeMinPrice(state.ReserReducers.choiceTimes.length,params.mid));
     }, [state.ReserReducers.choiceTimes.length]);
     return (
         <div>

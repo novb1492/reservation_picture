@@ -11,9 +11,13 @@ ul{
 div {
     margin: 0;
 }
+a {
+    text-decoration: none;
+  }
 .nav{
     display: flex;
     justify-content: space-between;
+    position: sticky;
 }
 .nav_ul{
     display: flex;
@@ -26,6 +30,9 @@ div {
     left: 27.5%;
     height: 40rem;
     margin-top: 5rem;
+}
+.drawing_img{
+    position: absolute;
 }
 .seat {
     position: absolute;
@@ -136,7 +143,22 @@ div {
 .period_c_box{
     display: flex;
 }
-@media (max-width: 555px) {
+.nav_bars{
+    display: none;
+}
+@media (max-width: 1400px) {
+    .product_img {
+        width: 6rem;
+    }
+}
+@media (max-width: 1200px) {
+    .drawing_container {
+        transform: rotate(270deg);
+        left: 0;
+        margin-top: 1rem;
+    }
+}
+@media (max-width: 841px) {
     .product_img {
         width: 4rem;
     }
@@ -155,10 +177,24 @@ div {
     .nav_ul{
         display: flex;
         flex-direction: column;
+        width: 100%;
+        align-items: center;
     }
-}
-@media (max-width: 1400px) {
-    .product_img {
-        width: 6rem;
+    .nav_bars{
+        display: block;
+    }
+    .nav_main{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .displayNone{
+        display: none;
+    }
+    .nav_ul_li{
+        margin-bottom: 0.5rem;
+    }
+    .drawing_container{
+        margin-top: 20rem;
     }
 }

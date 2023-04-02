@@ -25,7 +25,7 @@ function PaymentCompo(prop, ref) {
     }
     return (
         <form name="mobileweb" method="post" accept-charset="euc-kr" hidden >
-            <input type="text" name="P_NEXT_URL" value={`${process.env.REACT_APP_API_URL}/api/auth/payment`} />
+            <input type="text" name="P_NEXT_URL" value={prop.url} />
             <input type="text" name="P_INI_PAYMENT" value="CARD" />
             <input type="text" name="P_RESERVED" value="twotrs_isp=Y&block_isp=Y&twotrs_isp_noti=N" />
             <input type="text" name="P_MID" value="INIpayTest" />

@@ -26,7 +26,7 @@ function ReservationProPage() {
    */
   let request = async (kindId) => {
     try {
-      let response = await getProductsAndSeatInfo(params.seatId, kindId);
+      let response = await getProductsAndSeatInfo(params.seatId, kindId,params.mid);
       let data = response.data;
       consoleLog(response);
       dispatch(ReserAction.setProducts({ products: data.products }));
@@ -53,7 +53,7 @@ function ReservationProPage() {
         alert(`예약시간은 연속되게 선택가능합니다\n현재선택시간${arr}`);
         return;
       }
-      let response = await saveReservation(JSON.stringify({ "choiceProducts": state.ReserReducers.choiceProducts, "choiceTimes": arr }));
+      let response = await saveReservation(JSON.stringify({ "choiceProducts": state.ReserReducers.choiceProducts, "choiceTimes": arr,"seatId": params.seatId}));
       consoleLog(response);
       let data = response.data;
       paymentRef.current.on_pay(data);
@@ -76,7 +76,7 @@ function ReservationProPage() {
         <p>{state.ReserReducers.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
       </div>
       <hr></hr>
-      <PaymentCompo ref={paymentRef} />
+      <PaymentCompo ref={paymentRef} url={`${process.env.REACT_APP_API_URL}/api/auth/payment`} />
       <button onClick={order}>예약 하기</button>
     </div>
   );

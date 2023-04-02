@@ -36,3 +36,31 @@ export function sortAsc(arr) {
     arr.sort((a, b) => a - b);
     return arr;
 }
+export function getNowUrl(location) {
+    return `${location.pathname}${location.search}`;
+}
+export function initKakaoLogin() {
+    try {
+        window.Kakao.init('ec6b5c5e681c307d9d1576ee7fbf2edf');
+    } catch (error) {
+        consoleLog(error);
+    }
+}
+export function checkNullAndUnde(value) {
+    if (value === undefined || value === null || value === 'null' || value === 'undefined') {
+        return true;
+    }
+    return false;
+}
+export  function on_pay(data) {
+    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq'
+    var tossPayments = window.TossPayments(clientKey);
+    tossPayments.requestPayment('카드', {
+        amount: data.price,
+        orderId: data.paymentid,
+        orderName: data.name,
+        customerName: '고객님',
+        successUrl: `${process.env.REACT_APP_API_URL}/api/auth/payment/s/${data.paymentid}`,
+        failUrl: `${process.env.REACT_APP_API_URL}/api/auth/payment/f/${data.paymentid}`,
+      })
+}

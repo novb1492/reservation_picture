@@ -24,7 +24,7 @@ function ReservationPage() {
       if(floor===undefined||floor===null){
         floor=1;
       }
-      let response = await getFloorInfo(floor);
+      let response = await getFloorInfo(floor,params.mid);
       let data = response.data;
       dispatch(ReserAction.setDrawing({ drawing: data.drawing }));
       dispatch(ReserAction.setSeatInfoArr({ seatInfoArr: data.seats }));
@@ -51,9 +51,9 @@ function ReservationPage() {
   }, [params.floor]);
   return (
     <div>
-      <FloorCompo />
+      <FloorCompo mid={params.mid} />
       <div className="drawing_container" >
-        <img style={{ opacity: 0.9 }} className="seat" src={state.ReserReducers.drawing} alt="random photo" />
+        <img style={{ opacity: 0.9 }} className="drawing_img" src={state.ReserReducers.drawing} alt="random photo" />
         <SeatCompo />
       </div>
     </div>
